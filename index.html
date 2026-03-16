@@ -3,651 +3,946 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TERJ &mdash; B&oacute;g jako Gradient Dodatni &mdash; Pawe&#322; Majsterek</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<title>YHWH i Entropia — O Stawaniu się Rzeczywistości</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[
+    {left:'$$',right:'$$',display:true},
+    {left:'$',right:'$',display:false}
+  ],throwOnError:false});"></script>
+
 <style>
 :root {
-  --bg-deep:     #060a12;
-  --bg-mid:      #0c1422;
-  --bg-card:     #111d30;
-  --border:      rgba(80,140,220,0.18);
-  --border-glow: rgba(80,160,255,0.35);
-  --accent:      #4ea8ff;
-  --accent2:     #c47fff;
-  --accent4:     #4fffc8;
-  --text-hi:     #e8f0fc;
-  --text-mid:    #9ab0cc;
-  --text-lo:     #4a6280;
-  --eq-color:    #f0c070;
-  --nav-h:       64px;
+  --void:      #f5f0e8;
+  --deep:      #ede7d9;
+  --panel:     #faf7f2;
+  --border:    rgba(140,100,30,0.18);
+  --gold:      #8a6a1a;
+  --gold-dim:  #b08a30;
+  --gold-pale: rgba(160,120,40,0.06);
+  --amber:     #a0700a;
+  --cyan:      #1a6e8a;
+  --rust:      #8a2a10;
+  --text:      #2c2416;
+  --text-soft: #6a5a3a;
+  --text-dim:  #c0ab88;
+  --display:   'Playfair Display', Georgia, serif;
+  --body:      'Crimson Pro', Georgia, serif;
+  --mono:      'Share Tech Mono', monospace;
+  --max:       760px;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--bg-deep);color:var(--text-hi);font-family:'Crimson Pro',Georgia,serif;font-weight:300;line-height:1.75;overflow-x:hidden}
 
-#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{background:var(--void);color:var(--text);font-family:var(--body);line-height:1.85;overflow-x:hidden;}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);
-  background:rgba(6,10,18,.88);backdrop-filter:blur(18px);
+body::after{content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9000;opacity:0.25;mix-blend-mode:multiply;}
+
+#bar{position:fixed;top:0;left:0;height:1px;
+  background:linear-gradient(90deg,var(--gold-dim),var(--amber),var(--gold-dim));
+  width:0;z-index:8000;box-shadow:0 0 8px var(--gold);}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  align-items:flex-start;padding:8rem 4rem 6rem;position:relative;overflow:hidden;
   border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 2.5rem;box-shadow:0 4px 40px rgba(0,0,0,.5)}
-.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;
-  color:var(--accent);letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
-.nav-brand span{color:var(--text-mid);font-weight:400;font-size:.75rem;display:block;letter-spacing:.05em}
-.nav-links{display:flex;gap:.15rem;list-style:none}
-.nav-links a{display:block;padding:.38rem .8rem;font-family:'Crimson Pro',serif;
-  font-size:.88rem;color:var(--text-mid);text-decoration:none;
-  border-radius:6px;border:1px solid transparent;transition:all .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(78,168,255,.1);border-color:var(--border-glow)}
+  background:linear-gradient(135deg, #f9f4eb 0%, #f0e8d4 50%, #ede3cc 100%);}
+.hero-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(140,100,30,0.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(140,100,30,0.06) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 20% 50%,black 0%,transparent 70%);}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(160,120,40,0.08) 0%,transparent 70%);
+  top:50%;left:-100px;transform:translateY(-50%);pointer-events:none;}
 
-.hero{position:relative;z-index:1;min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:calc(var(--nav-h) + 3rem) 2rem 5rem;overflow:hidden}
-.hero-glow{position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(ellipse 80% 50% at 50% 40%,rgba(30,70,160,.25) 0%,transparent 70%),
-             radial-gradient(ellipse 60% 40% at 70% 60%,rgba(100,40,200,.12) 0%,transparent 60%)}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);
-  letter-spacing:.25em;text-transform:uppercase;border:1px solid var(--border-glow);
-  padding:.35rem 1.2rem;border-radius:30px;margin-bottom:2rem;
-  background:rgba(78,168,255,.07);animation:fadeInDown .8s ease both}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6vw,5rem);
-  font-weight:700;line-height:1.1;color:var(--text-hi);margin-bottom:1rem;
-  animation:fadeInUp .9s .1s ease both}
-.hero h1 em{font-style:italic;color:var(--accent);text-shadow:0 0 40px rgba(78,168,255,.4)}
-.hero-sub{font-size:clamp(1rem,2vw,1.2rem);font-weight:300;color:var(--text-mid);
-  max-width:640px;margin:0 auto 2.5rem;animation:fadeInUp 1s .2s ease both}
-.hero-eq{font-family:'JetBrains Mono',monospace;font-size:clamp(.85rem,1.8vw,1.05rem);
-  color:var(--eq-color);background:rgba(240,192,112,.07);border:1px solid rgba(240,192,112,.25);
-  padding:.8rem 2rem;border-radius:10px;margin-bottom:3rem;animation:fadeInUp 1s .3s ease both}
-.scroll-hint{animation:bounce 2s 1.5s ease infinite;color:var(--text-lo);font-size:1.5rem}
+.hero-eyebrow{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.3em;
+  color:var(--gold-dim);text-transform:uppercase;margin-bottom:2rem;
+  opacity:0;animation:rise 1s 0.2s forwards;}
+.hero h1{font-family:var(--display);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;
+  line-height:1.0;letter-spacing:-0.02em;color:#1a1206;max-width:700px;
+  opacity:0;animation:rise 1s 0.4s forwards;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-family:var(--display);font-style:italic;font-size:1.15rem;
+  color:var(--text-soft);margin-top:1.5rem;max-width:520px;line-height:1.6;
+  opacity:0;animation:rise 1s 0.6s forwards;}
 
-.page-wrap{position:relative;z-index:1}
-section{padding:5.5rem 2rem;max-width:1080px;margin:0 auto}
-.section-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);
-  letter-spacing:.3em;text-transform:uppercase;margin-bottom:.6rem;
-  display:flex;align-items:center;gap:.8rem}
-.section-label::before{content:'';display:block;width:30px;height:1px;background:var(--accent)}
-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);
-  font-weight:700;line-height:1.2;color:var(--text-hi);margin-bottom:1.8rem}
-section h3{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2vw,1.5rem);
-  font-weight:600;color:var(--accent);margin:2.2rem 0 .9rem;
-  border-left:3px solid var(--accent);padding-left:1rem}
-section p{font-size:1.08rem;font-weight:300;color:var(--text-mid);
-  line-height:1.85;margin-bottom:1.2rem;max-width:750px}
-section p strong{color:var(--text-hi);font-weight:600}
-section p em{color:var(--accent4);font-style:italic}
+/* ── KaTeX hero formula box ── */
+.hero-katex{margin-top:3rem;padding:1.1rem 1.6rem;
+  border:1px solid var(--border);background:rgba(255,250,240,0.8);
+  display:inline-block;opacity:0;animation:rise 1s 0.8s forwards;
+  box-shadow:0 2px 16px rgba(140,100,30,0.08);}
+.hero-katex .katex{color:var(--gold);font-size:1.1rem;}
 
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-glow),transparent);
-  margin:0 auto;max-width:600px}
+.hero-scroll{position:absolute;bottom:3rem;left:4rem;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.25em;
+  color:var(--text-dim);text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:flex-start;gap:0.5rem;
+  opacity:0;animation:rise 1s 1.2s forwards;}
+.hero-scroll-line{width:40px;height:1px;
+  background:linear-gradient(to right,var(--gold-dim),transparent);
+  animation:pulse-line 2s 1.5s infinite;}
 
-.eq-block{background:linear-gradient(135deg,rgba(17,29,48,.9) 0%,rgba(12,20,36,.95) 100%);
-  border:1px solid rgba(240,192,112,.28);border-left:4px solid var(--eq-color);
-  border-radius:0 12px 12px 0;padding:1.4rem 1.8rem;margin:1.8rem 0;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  box-shadow:0 4px 28px rgba(0,0,0,.4)}
-.eq-block .eq-formula{font-size:1.08rem;color:var(--eq-color)}
-.eq-block .eq-formula .katex{color:var(--eq-color);font-size:1.15rem}
-.eq-block .eq-formula .katex .mord,.eq-block .eq-formula .katex .mop,
-.eq-block .eq-formula .katex .mbin,.eq-block .eq-formula .katex .mrel,
-.eq-block .eq-formula .katex .mpunct{color:var(--eq-color)}
-.eq-block .eq-label{font-family:'JetBrains Mono',monospace;font-size:.73rem;color:var(--text-lo)}
+@keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+@keyframes pulse-line{0%,100%{opacity:.3;width:40px;}50%{opacity:1;width:70px;}}
 
-blockquote{border-left:3px solid var(--accent2);padding:1.2rem 1.8rem;margin:1.8rem 0;
-  background:rgba(196,127,255,.06);border-radius:0 10px 10px 0;
-  color:var(--text-mid);font-size:1.05rem;font-style:italic}
-blockquote cite{display:block;margin-top:.5rem;font-size:.82rem;color:var(--text-lo);
-  font-style:normal;font-family:'JetBrains Mono',monospace;letter-spacing:.05em}
+/* ── MAIN ── */
+.main{max-width:var(--max);margin:0 auto;padding:6rem 2rem 10rem;}
 
-.hypo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem}
-.hypo-card{background:linear-gradient(135deg,var(--bg-card) 0%,rgba(10,16,28,.95) 100%);
-  border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;
-  overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s;
-  box-shadow:0 4px 24px rgba(0,0,0,.4)}
-.hypo-card:hover{transform:translateY(-4px);border-color:var(--border-glow);
-  box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 30px rgba(78,168,255,.1)}
-.hypo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:16px 16px 0 0}
-.hypo-card .hypo-num{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;
-  color:rgba(78,168,255,.1);position:absolute;top:.4rem;right:1rem;line-height:1}
-.hypo-card .hypo-label{font-family:'JetBrains Mono',monospace;font-size:.66rem;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem}
-.hypo-card p{font-size:.95rem;color:var(--text-mid);max-width:100%;margin:0}
+.essay-section{margin-bottom:6rem;opacity:0;transform:translateY(20px);
+  transition:opacity 0.7s ease,transform 0.7s ease;}
+.essay-section.visible{opacity:1;transform:none;}
 
-.chart-section{background:linear-gradient(180deg,rgba(12,20,36,.6) 0%,transparent 100%);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:5rem 2rem}
-.chart-section .inner{max-width:1080px;margin:0 auto}
-.chart-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.3rem);
-  font-weight:700;color:var(--text-hi);text-align:center;margin-bottom:.5rem}
-.chart-intro{text-align:center;color:var(--text-mid);font-size:1rem;
-  max-width:600px;margin:0 auto 3rem}
+.section-marker{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;}
+.section-marker-num{font-family:var(--mono);font-size:0.6rem;color:var(--gold-dim);
+  letter-spacing:0.2em;min-width:2rem;}
+.section-marker-line{flex:1;height:1px;
+  background:linear-gradient(to right,var(--border),transparent);}
 
+h2{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700;
+  line-height:1.2;color:#1a1206;margin-bottom:2rem;letter-spacing:-0.01em;}
+h2 em{color:var(--gold);font-style:italic;}
 
+p{font-size:1.05rem;color:var(--text);margin-bottom:1.4rem;
+  text-align:justify;hyphens:auto;}
+p:last-child{margin-bottom:0;}
 
+/* ── PULL QUOTE ── */
+.pq{border-left:2px solid var(--gold);padding:1.2rem 0 1.2rem 2rem;margin:2.5rem 0;position:relative;background:rgba(255,250,240,0.6);}
+.pq::before{content:'';position:absolute;left:-1px;top:0;width:1px;height:100%;
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent);}
+.pq p{font-family:var(--display);font-style:italic;font-size:1.15rem;
+  color:var(--amber);text-align:left;margin:0;line-height:1.6;}
 
+/* ── FORMULA BOX (KaTeX) ── */
+.fbox{background:rgba(255,252,245,0.9);border:1px solid var(--border);border-left:3px solid var(--gold);
+  padding:1.4rem 1.6rem;margin:2rem 0;position:relative;overflow:hidden;
+  box-shadow:0 2px 12px rgba(140,100,30,0.07);}
+.fbox::before{content:attr(data-label);position:absolute;top:-1px;right:1rem;
+  font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;color:var(--gold-dim);
+  text-transform:uppercase;background:rgba(255,252,245,0.9);padding:0 0.5rem;}
+.fbox .katex-display{margin:0;text-align:left;}
+.fbox .katex-display>.katex{color:var(--gold);font-size:1.05rem;}
+.fbox .katex{color:var(--gold);}
+.fbox .fcomment{display:block;margin-top:0.8rem;font-size:0.82rem;
+  color:var(--text-soft);font-family:var(--body);font-style:italic;line-height:1.5;}
 
+/* ── SCIENCE NOTE ── */
+.snote{background:rgba(26,110,138,0.04);border:1px solid rgba(26,110,138,0.18);
+  padding:1.2rem 1.5rem;margin:2rem 0;}
+.snote::before{content:'nota naukowa';font-family:var(--mono);font-size:0.55rem;
+  letter-spacing:0.2em;color:var(--cyan);text-transform:uppercase;
+  display:block;margin-bottom:0.5rem;}
+.snote p{font-size:0.93rem;color:var(--text-soft);margin:0;text-align:left;}
 
+.divider{text-align:center;margin:4rem 0;color:var(--gold-dim);
+  letter-spacing:0.8em;font-size:0.7rem;}
 
+/* ── INTERACTIVE ── */
+.interactive-wrap{margin:5rem 0;}
+.interactive-wrap.visible{}
 
+.interactive-header{display:flex;align-items:baseline;justify-content:space-between;
+  border-bottom:1px solid var(--border);padding-bottom:1rem;margin-bottom:0;}
+.interactive-title{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold-dim);}
+.interactive-subtitle{font-family:var(--mono);font-size:0.55rem;
+  color:var(--text-dim);letter-spacing:0.1em;}
 
-.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:1.8rem}
-.chart-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
-  padding:1.6rem;box-shadow:0 6px 32px rgba(0,0,0,.5);
-  transition:border-color .3s,box-shadow .3s}
-.chart-card:hover{border-color:var(--border-glow)}
-.chart-title{font-family:'Playfair Display',serif;font-size:1rem;
-  font-weight:600;color:var(--text-hi);margin-bottom:.3rem}
-.chart-desc{font-size:.82rem;color:var(--text-lo);margin-bottom:1rem;
-  line-height:1.5;font-family:'Crimson Pro',serif}
-.chart-card canvas{width:100%;display:block;border-radius:6px}
-.chart-wide{grid-column:1/-1}
+/* ── TABS ── */
+.tabs{display:flex;border-bottom:1px solid var(--border);background:rgba(255,252,245,0.7);}
+.tab-btn{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--text-dim);background:none;border:none;
+  padding:0.7rem 1.2rem;cursor:pointer;
+  border-bottom:2px solid transparent;position:relative;top:1px;
+  transition:color 0.2s,border-color 0.2s;}
+.tab-btn:hover{color:var(--gold-dim);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
 
-.conclusion{background:linear-gradient(135deg,rgba(17,29,48,.8) 0%,rgba(30,15,50,.8) 100%);
-  border:1px solid var(--border);border-radius:24px;padding:3rem;margin-top:3rem;
-  box-shadow:0 0 60px rgba(100,40,200,.1),inset 0 1px 0 rgba(255,255,255,.05);
-  position:relative;overflow:hidden}
-.conclusion::before{content:'G';position:absolute;right:-1rem;top:-2rem;
-  font-family:'Playfair Display',serif;font-size:14rem;font-weight:700;
-  color:rgba(78,168,255,.04);pointer-events:none;line-height:1}
-.conclusion h2{font-family:'Playfair Display',serif;font-size:2rem;
-  font-weight:700;color:var(--text-hi);margin-bottom:1.5rem}
+/* ── TAB PANELS ── */
+.chart-panel{display:none;}
+.chart-panel.active{display:block;}
+.charts-container{position:relative;}
 
-footer{position:relative;z-index:1;text-align:center;padding:3rem 2rem;
-  border-top:1px solid var(--border);color:var(--text-lo);
-  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em}
+/* ── CANVAS ── */
+.canvas-wrap{position:relative;background:var(--panel);border:1px solid var(--border);border-bottom:none;box-shadow:inset 0 1px 4px rgba(140,100,30,0.04);}
+canvas{display:block;width:100%;height:320px;}
 
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* ── CONTROLS ── */
+.controls{display:flex;flex-wrap:wrap;gap:1.5rem;padding:1.2rem 1.5rem;
+  background:rgba(245,240,232,0.8);border:1px solid var(--border);border-top:none;border-bottom:none;}
+.ctrl{display:flex;flex-direction:column;gap:0.4rem;min-width:110px;flex:1;}
+.ctrl-label{font-family:var(--mono);font-size:0.56rem;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--text-dim);}
 
-@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+/* ── RANGE SLIDER ── */
+input[type=range]{-webkit-appearance:none;width:100%;height:2px;
+  background:var(--border);outline:none;cursor:pointer;border-radius:0;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;
+  background:var(--gold);border-radius:50%;cursor:pointer;
+  box-shadow:0 0 6px rgba(200,168,75,0.6);transition:transform 0.1s;}
+input[type=range]::-webkit-slider-thumb:active{transform:scale(1.3);}
+input[type=range]::-moz-range-thumb{width:12px;height:12px;background:var(--gold);
+  border-radius:50%;cursor:pointer;border:none;}
+
+.ctrl-val{font-family:var(--mono);font-size:0.68rem;color:var(--gold);letter-spacing:0.05em;}
+.chart-desc{font-family:var(--body);font-style:italic;font-size:0.84rem;
+  color:var(--text-soft);background:rgba(255,252,245,0.9);padding:0.9rem 1.5rem;
+  border:1px solid var(--border);border-top:none;line-height:1.6;}
+
+/* ── SIDE NAV ── */
+.sidenav{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:0.6rem;z-index:500;}
+.sndot{width:5px;height:5px;border-radius:50%;background:var(--text-dim);
+  cursor:pointer;transition:background 0.3s,transform 0.3s;position:relative;}
+.sndot.active{background:var(--gold);transform:scale(1.6);}
+.sndot:hover::after{content:attr(data-tip);position:absolute;right:14px;top:50%;
+  transform:translateY(-50%);font-family:var(--mono);font-size:0.55rem;
+  letter-spacing:0.1em;white-space:nowrap;color:var(--gold);
+  background:rgba(255,252,245,0.95);border:1px solid var(--border);padding:0.2rem 0.5rem;
+  box-shadow:0 2px 8px rgba(140,100,30,0.12);}
+
+/* ── FOOTER ── */
+.foot{border-top:1px solid var(--border);padding:3rem 2rem;max-width:var(--max);
+  margin:0 auto;font-family:var(--mono);font-size:0.6rem;
+  color:var(--text-soft);letter-spacing:0.08em;line-height:2;}
 
 @media(max-width:768px){
-  nav{padding:0 1rem}.nav-links{display:none}
-  .charts-grid{grid-template-columns:1fr}.chart-wide{grid-column:1}
+  .hero{padding:6rem 1.5rem 4rem;}
+  .main{padding:4rem 1.5rem 6rem;}
+  .sidenav{display:none;}
+  .controls{gap:1rem;}
+  .hero-katex .katex{font-size:0.85rem;}
 }
+
+/* ══ TAB SYSTEM — opacity trick, always full height in DOM ══ */
+.iw-tabs { display:flex; flex-wrap:wrap; border-bottom:1px solid var(--border); background:rgba(255,252,245,.7); }
+.iw-tab  { font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
+           color:var(--text-dim); background:none; border:none; padding:.7rem 1.1rem; cursor:pointer;
+           border-bottom:2px solid transparent; position:relative; top:1px; transition:color .2s; }
+.iw-tab:hover { color:var(--gold-dim); }
+.iw-tab.on    { color:var(--gold); border-bottom-color:var(--gold); }
+
+/* Panels stacked — inactive = invisible but laid out */
+.iw-stack { position:relative; }
+.iw-panel { }
+.iw-panel:not(.on) { display:none; }
+
+.iw-svg   { display:block; width:100%; background:var(--panel);
+            border:1px solid var(--border); border-bottom:none; }
+.iw-ctrl  { display:flex; flex-wrap:wrap; gap:1.4rem; padding:1.1rem 1.4rem;
+            background:rgba(245,240,232,.8); border:1px solid var(--border); border-top:none; border-bottom:none; }
+.iw-c     { display:flex; flex-direction:column; gap:.4rem; min-width:110px; flex:1; }
+.iw-cl    { font-family:var(--mono); font-size:.55rem; letter-spacing:.14em; text-transform:uppercase; color:var(--text-dim); }
+.iw-cv    { font-family:var(--mono); font-size:.68rem; color:var(--gold); }
+input[type=range] { -webkit-appearance:none; width:100%; height:2px; background:var(--border); cursor:pointer; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:13px; height:13px;
+  background:var(--gold); border-radius:50%; box-shadow:0 0 5px rgba(138,106,26,.4); }
+input[type=range]::-moz-range-thumb { width:13px; height:13px; background:var(--gold); border-radius:50%; border:none; }
+.iw-desc  { font-style:italic; font-size:.84rem; color:var(--text-soft); background:rgba(255,252,245,.9);
+            padding:.9rem 1.4rem; border:1px solid var(--border); border-top:none; line-height:1.6; }
+
 </style>
-<canvas id="particles"></canvas>
+</head>
+<body>
 
-<nav>
-  <a class="nav-brand" href="#hero">TERJ<span>Teoria Emergentnych Relacji Jako</span></a>
-  <ul class="nav-links">
-    <li><a href="#intro">Wstep</a></li>
-    <li><a href="#gradient-neg">Gradient -</a></li>
-    <li><a href="#gradient-pos">Gradient +</a></li>
-    <li><a href="#charts">Wizualizacje</a></li>
-    <li><a href="#eden">Eden</a></li>
-    <li><a href="#hipotezy">Hipotezy</a></li>
-    <li><a href="#ayin-alef">Ayin&#8594;Alef</a></li>
-    <li><a href="#wnioski">Wnioski</a></li>
-  </ul>
-</nav>
+<div id="bar"></div>
+<nav class="sidenav" id="sn"></nav>
 
-<section class="hero" id="hero">
+<header class="hero" id="top">
+  <div class="hero-grid"></div>
   <div class="hero-glow"></div>
-  <div class="hero-tag">Prepublication Draft &mdash; 9 Marca 2026</div>
-  <h1>B&oacute;g jako<br><em>gradient dodatni</em></h1>
-  <p class="hero-sub">Formalna analogia matematyczno-fizyczna w ramach TERJ &mdash; od termodynamiki i mechaniki kwantowej do kosmologii potencjalno&#347;ci</p>
-  <div class="hero-eq">\(\hat{H}_{\text{total}} = \hat{H}_{\text{natural}} + \lambda \cdot \hat{G}_{\text{potencjalności}}\)</div>
-  <div style="margin-top:1.8rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;animation:fadeInUp 1s .4s ease both">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-lo);letter-spacing:.2em;text-transform:uppercase">autor</span>
-    <span style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;color:var(--text-mid);letter-spacing:.05em">Pawe&#322; Majsterek</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-lo);letter-spacing:.14em">9 Marca 2026</span>
+  <p class="hero-eyebrow">Esej naukowy · Marzec 2026</p>
+  <h1>YHWH<br>i <em>Entropia</em></h1>
+  <p class="hero-sub">O stawaniu się rzeczywistości — od geometrii przestrzeni fazowej do świadomości jako struktury dysypatywnej</p>
+  <div class="hero-katex">
+    $S = k_B \ln \Omega \quad\cdot\quad \Delta x \cdot \Delta p \geq \dfrac{\hbar}{2} \quad\cdot\quad \frac{1}{\lambda} = R_H \!\left(\frac{1}{n_1^2} - \frac{1}{n_2^2}\right)$
   </div>
-  <div class="scroll-hint" style="margin-top:2rem">&#8595;</div>
-</section>
-<div class="page-wrap">
+  <div class="hero-scroll">Przewijaj<div class="hero-scroll-line"></div></div>
+</header>
 
+<main class="main">
 
-<section id="intro" class="reveal">
-  <div class="section-label">00 &mdash; Preambula</div>
-  <h2>Odwaga jako metoda naukowa</h2>
-  <p>Tradycja akademicka sk&#322;ania ku ostro&#380;no&#347;ci. Twierdzenia formu&#322;uje si&#281; tylko w&oacute;wczas, gdy s&#261; w pe&#322;ni uzasadnione dowodem lub eksperymentem. Niniejsza praca &#347;wiadomie przekracza t&#281; granic&#281;. To nie jest b&#322;&#261;d metodologiczny &mdash; to <strong>wyb&oacute;r epistemologiczny</strong>.</p>
-  <p>Fizyka dokona&#322;a podobnych skok&oacute;w wielokrotnie: Einstein postulowa&#322; szczeg&oacute;ln&#261; teori&#281; wzgl&#281;dno&#347;ci na bazie intuicji o symetrii praw przyrody. Dirac <em>przewidzia&#322;</em> antymaterio jako k&#322;opotliw&#261; konsekwencj&#281; matematyki. Bohr i Heisenberg akceptowali rezygnacj&#281; z determinizmu, nie czekaj&#261;c na filozoficzny konsensus.</p>
-  <blockquote>
-    Proponujemy, by <strong>gradient dodatni</strong> traktowa&#263; jak Diracowy postulat: element formalny, kt&oacute;ry pojawia si&#281; w r&oacute;wnaniach nie dlatego, &#380;e go zaobserwowali&#347;my, lecz dlatego, &#380;e sp&oacute;jno&#347;&#263; g&#322;&#281;bszego obrazu &#347;wiata go <em>wymaga</em>.
-    <cite>&mdash; TERJ Working Paper, 2026</cite>
-  </blockquote>
-</section>
+  <!-- §1 -->
+  <section class="essay-section" id="s1">
+    <div class="section-marker"><span class="section-marker-num">§ 01</span><div class="section-marker-line"></div></div>
+    <h2>YHWH jako ontologia processualna —<br><em>termodynamika nieequilibrium</em></h2>
+    <p>Imię Boga zapisywane w tradycji hebrajskiej jako YHWH bywa interpretowane jako forma czasownika „być" — lecz nie w jego klasycznym, statycznym sensie. Chodzi raczej o formę niedokonaną: „będę, który będę", „staję się, którym się staję". Rzeczywistość w tej perspektywie nie jest strukturą zamkniętą — jest dynamicznym polem przemian, procesualnością bez zatrzymania.</p>
+    <p>Ilya Prigogine, laureat Nagrody Nobla z chemii w roku 1977, odkrył coś, co rzuca na tę intuicję nieoczekiwane światło naukowe. Układy daleko od równowagi termodynamicznej nie tylko nie rozpadają się — one spontanicznie wytwarzają struktury o rosnącej złożoności. Prigogine nazwał je strukturami dysypatywnymi. Warunkiem ich istnienia jest stały przepływ energii przez układ — nie magazynowanie, lecz nieprzerwalny ruch.</p>
+    <div class="pq"><p>Komórka, płomień świecy, huragan — wszystkie są strukturami dysypatywnymi. Istnieją wyłącznie jako procesy. Zatrzymany huragan to nie spokojny huragan — to brak huraganu.</p></div>
+    <p>Jeśli byt istnieje wyłącznie przez nieustanny przepływ, to YHWH jako „hayah asher hayah" jest opisem tej samej zasady na poziomie fundamentalnym: rzeczywistości, która istnieje w akcie trwającego gradientu, nigdy jako zamknięty obiekt.</p>
+    <div class="fbox" data-label="Prigogine 1977">
+      $$\frac{dS}{dt} = \frac{d_i S}{dt} + \frac{d_e S}{dt} \geq 0$$
+      <span class="fcomment">Całkowita zmiana entropii układu otwartego = produkcja wewnętrzna + wymiana z otoczeniem. Tylko suma musi być nieujemna — lokalne obniżenie S jest możliwe przy wystarczającym gradiencie zewnętrznym.</span>
+    </div>
+    <p>Biblijna metafora „ciernia i ostu" nabiera w tej perspektywie precyzji fizycznej. Budowanie struktury to lokalne zmniejszenie $\Omega$ — liczby mikrostanów dostępnych układowi. Koszt musi być ponoszony gdzieś w otoczeniu. Cierpień i ostu nie są karą — są fizycznym rachunkiem za utrzymanie gradientu.</p>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider">· · ·</div>
 
-<section id="gradient-neg" class="reveal">
-  <div class="section-label">01 &mdash; Fundament</div>
-  <h2>Gradienty ujemne &mdash; zasada organizacji &#347;wiata</h2>
-  <p>W &#347;wiecie materialnym <strong>gradienty ujemne</strong> determinuj&#261; przep&#322;yw energii i informacji. Gradient potencja&#322;u okre&#347;la trajektorie mikrostanów, stabilizuje energi&#281; i nadaje ograniczenia stanom dopuszczalnym.</p>
-  <h3>Termodynamika klasyczna</h3>
-  <p>Strumie&#324; energii przep&#322;ywa zawsze od wy&#380;szego potencja&#322;u ku ni&#380;szemu. Ujemny znak wyra&#380;a fundamentaln&#261; asymetri&#281; &mdash; naturalne zubo&#380;enie gradientu.</p>
-  <div class="eq-block">
-    <span class="eq-formula">\(\vec{J} = -\kappa\,\nabla T\)</span>
-    <span class="eq-label">(1.1) &mdash; Fourier, przewodnictwo ciep&#322;a</span>
-  </div>
-  <h3>Mechanika kwantowa</h3>
-  <p>Hamiltonian H&#770; kieruje ewolucj&#261; stanu kwantowego ku stanom w&#322;asnym o najni&#380;szej energii. <strong>Stabilno&#347;&#263; j&#261;dra atomowego, wi&#261;zanie chemiczne, koherencja biologiczna</strong> &mdash; wszystko to s&#261; przejawy dominacji gradientu ujemnego.</p>
-  <div class="eq-block">
-    <span class="eq-formula">\(i\hbar\,\dfrac{\partial}{\partial t}|\psi(t)\rangle = \hat{H}\,|\psi(t)\rangle\)</span>
-    <span class="eq-label">(1.2) &mdash; Schr&ouml;dinger, ewolucja stanu</span>
-  </div>
-</section>
+  <!-- §2 -->
+  <section class="essay-section" id="s2">
+    <div class="section-marker"><span class="section-marker-num">§ 02</span><div class="section-marker-line"></div></div>
+    <h2>Geometria przestrzeni fazowej —<br><em>czym naprawdę jest entropia</em></h2>
+    <p>Ludwig Boltzmann w roku 1877 zapisał na tablicy równanie, które kilkadziesiąt lat po jego śmierci zostanie wyryte na jego nagrobku w Wiedniu. Entropia $S$ jest iloczynem stałej Boltzmanna i logarytmu naturalnego z liczby $\Omega$ — liczby mikrostanów, przez które może być zrealizowany dany stan makroskopowy układu. To jest definicja kompletna i nie wymaga żadnego dodatku.</p>
+    <p>Entropia nie jest siłą. Nie jest dążnością. Nie jest kosmicznym wyrokiem ciągnącym rzeczy ku rozpadowi. Jest miarą statystyczną — opisem geometrii przestrzeni fazowej. Układ „zmierza ku większej entropii" wyłącznie dlatego, że stanów o wysokim $\Omega$ jest przytłaczająco więcej niż stanów o niskim $\Omega$. Jeśli system wędruje losowo po przestrzeni fazowej, prawie zawsze trafi w rejon gęsto zaludniony przez mikrostany — nie dlatego, że jakaś siła go tam ciągnie, lecz dlatego, że tam jest po prostu więcej miejsca.</p>
+    <div class="snote"><p>Mówienie o entropii jako „sile rozpadu" jest błędem kategorii. To tak, jakby powiedzieć, że kostka do gry „chce" wypaść na szóstkę najrzadziej. Kostka nie chce niczego — jest ich po prostu mniej możliwych kombinacji prowadzących do szóstki. Determinantem dynamiki jest gradient różnicy potencjałów, nie entropia jako aktywny aktor.</p></div>
+    <div class="fbox" data-label="Boltzmann 1877">
+      $$S = k_B \ln \Omega \qquad k_B = 1{,}38 \times 10^{-23}\ \frac{\text{J}}{\text{K}}$$
+      <span class="fcomment">$\Omega$ — liczba mikrostanów odpowiadających danemu stanowi makroskopowemu. Entropia rośnie, bo stanów o wysokim $\Omega$ jest statystycznie więcej — geometria przestrzeni fazowej, nie siła.</span>
+    </div>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider">· · ·</div>
 
-<section id="gradient-pos" class="reveal">
-  <div class="section-label">02 &mdash; Anti-gradient</div>
-  <h2>Gradient dodatni &mdash; formalizacja potencjalno&#347;ci</h2>
-  <p>Definiujemy gradient dodatni jako operator G&#770;, kt&oacute;ry wprowadza do hamiltonianu sk&#322;adow&#261; odpowiadaj&#261;c&#261; <em>eksploracji przestrzeni stan&oacute;w</em> zamiast jej minimalizacji.</p>
-  <div class="eq-block">
-    <span class="eq-formula">\(\vec{J}_{\!B} = +k\,\nabla V(\vec{x},\,t),\quad k > 0\)</span>
-    <span class="eq-label">(2.1) &mdash; anti-gradient termodynamiczny</span>
-  </div>
-  <div class="eq-block">
-    <span class="eq-formula">\(i\hbar\,\dfrac{\partial}{\partial t}|\psi(t)\rangle = \bigl(\hat{H}+\lambda\hat{G}\bigr)|\psi(t)\rangle\)</span>
-    <span class="eq-label">(2.2) &mdash; rozszerzony hamiltonian TERJ</span>
-  </div>
-  <p>Operator G&#770; posiada <strong>p&#322;askie widmo</strong> &mdash; wszystkie warto&#347;ci w&#322;asne maj&#261; r&oacute;wn&#261; degeneracje. Nie ma stan&oacute;w uprzywilejowanych. Nie istnieje minimum.</p>
-  <h3>Kluczowy warunek: niekomutatywno&#347;&#263;</h3>
-  <p><strong>Porz&#261;dek i pe&#322;na potencjalno&#347;&#263; s&#261; komplementarne w sensie Heisenberga.</strong> Im wi&#281;cej struktury posiada uk&#322;ad, tym mniej dost&#281;pna jest mu pe&#322;na przestrze&#324; mo&#380;liwo&#347;ci.</p>
-  <div class="eq-block">
-    <span class="eq-formula">\([\hat{G},\,\hat{H}] \neq 0\)</span>
-    <span class="eq-label">(2.3) &mdash; komplementarno&#347;&#263;: struktura &#8596; potencjalno&#347;&#263;</span>
-  </div>
-</section>
+  <!-- §3 -->
+  <section class="essay-section" id="s3">
+    <div class="section-marker"><span class="section-marker-num">§ 03</span><div class="section-marker-line"></div></div>
+    <h2>Zasada nieoznaczoności<br>jako <em>fundament struktury</em></h2>
+    <p>Elektrony w atomach nie zajmują sztywnych orbit w sensie klasycznym — są opisane przez rozkłady prawdopodobieństwa wynikające z mechaniki kwantowej. Ale tekst, który zatrzymuje się na tej obserwacji, zatrzymuje się o krok za wcześnie. Kluczowe pytanie brzmi: dlaczego elektron nie „spada" na najniższy możliwy poziom energetyczny i nie osiąga klasycznej równowagi przy zerowej energii kinetycznej?</p>
+    <p>Odpowiedź daje zasada nieoznaczoności Heisenberga. Zerowa energia kinetyczna wymagałaby nieskończonej precyzji lokalizacji elektronu — co narusza zasadę nieoznaczoności. Atom wodoru w stanie podstawowym nie może mieć niższej energii nie dlatego, że jakaś siła go trzyma — dlatego, że wymagałoby to sprecyzowania zarówno położenia jak i pędu poniżej granicy dozwolonej przez strukturę przestrzeni fazowej kwantowej.</p>
+    <div class="pq"><p>Porządek na poziomie atomowym jest wbudowany w geometrię przestrzeni fazowej przez zasadę nieoznaczoności — nie przez zewnętrzną interwencję. Pewne stany są strukturalnie wykluczone z przestrzeni możliwości.</p></div>
+    <div class="fbox" data-label="Heisenberg 1927">
+      $$\Delta x \cdot \Delta p \geq \frac{\hbar}{2} \qquad \Delta E \cdot \Delta t \geq \frac{\hbar}{2}$$
+      <span class="fcomment">Zasada nieoznaczoności nie jest ograniczeniem pomiaru — jest fundamentalną własnością przestrzeni fazowej kwantowej. Stan o zerowej niepewności pędu i położenia jest strukturalnie niemożliwy.</span>
+    </div>
+  </section>
 
+  <div class="divider">· · ·</div>
 
-<div class="chart-section" id="charts">
-  <div class="inner">
-    <div class="section-label" style="justify-content:center;margin-bottom:.5rem">03 &mdash; Wizualizacje</div>
-    <h2>Fluktuacje i przepływy</h2>
-    <p class="chart-intro">Animowane wizualizacje propagacji energii między reżimem gradientu ujemnego (struktura, skóra&nbsp;&#x05E2;&#x05D5;&#x05E8;) a gradientu dodatniego (potencjalność, światło&nbsp;&#x05D0;&#x05D5;&#x05E8;). Wszystkie wykresy żyją w czasie rzeczywistym bez żadnych bibliotek.</p>
+  <!-- §4 -->
+  <section class="essay-section" id="s4">
+    <div class="section-marker"><span class="section-marker-num">§ 04</span><div class="section-marker-line"></div></div>
+    <h2>Widma jako podpis gradientu —<br><em>tożsamość jest różnicą potencjałów</em></h2>
+    <p>Każdy pierwiastek posiada charakterystyczne widmo emisyjne i absorpcyjne. Gdy elektron w atomie wodoru przeskakuje z poziomu $n=3$ na $n=2$, emituje foton o długości fali 656 nanometrów — czerwona linia $H_\alpha$, widoczna w widmie każdej gwiazdy zawierającej wodór, niezależnie od odległości. Wodór w odległości miliarda lat świetlnych ma dokładnie te same linie spektralne co wodór w laboratorium.</p>
+    <p>Jest tu ukryty wniosek epistemologiczny, który spektroskopia ujawnia z matematyczną precyzją: tożsamość pierwiastka jest opisywana przez jego charakterystyczne gradienty energetyczne — przez wzorzec skoków między poziomami kwantowymi, nie przez jego masę czy objętość. To, czym coś jest, wyraża się przez to, jak i gdzie przenosi energię.</p>
+    <div class="snote"><p>Spektroskopia jest dosłownie czytaniem gradientu. Emitowany foton ma energię równą różnicy poziomów energetycznych: $E = h\nu = E_{n_2} - E_{n_1}$. Widmo emisyjne to zapis wszystkich możliwych gradientów danego układu kwantowego — jego „podpis fazowy".</p></div>
+    <div class="fbox" data-label="Bohr 1913 / Rydberg">
+      $$\frac{1}{\lambda} = R_H \cdot Z^2 \left(\frac{1}{n_1^2} - \frac{1}{n_2^2}\right) \qquad R_H = 1{,}097 \times 10^{7}\ \text{m}^{-1}$$
+      <span class="fcomment">Każda linia spektralna jest zapisem gradientu energetycznego między dwoma stanami kwantowymi. Tożsamość pierwiastka jest unikalnym wzorcem tych gradientów.</span>
+    </div>
+  </section>
 
-    <div class="charts-grid">
+  <div class="divider">· · ·</div>
 
-      <!-- CHART 1: Energy bars -->
-      <div class="chart-card">
-        <div class="chart-title">Rozkład energii mikrostanów</div>
-        <div class="chart-desc">Gradient &#8722; (niebieski) skupia energię w stanach niskich. Gradient + G&#770; (fioletowy) spłaszcza rozkład ku równoprawdopodobieństwu. Słupki oddychają w rytmie fluktuacji termicznych.</div>
-        <svg viewBox="0 0 500 180" width="100%" preserveAspectRatio="none" style="height:180px;display:block">
-          <rect width="500" height="180" fill="#0c1422" rx="6"/><g stroke="rgba(80,120,180,0.11)" stroke-width="1"><line x1="45.0" y1="20" x2="45.0" y2="156.0"/><line x1="119.2" y1="20" x2="119.2" y2="156.0"/><line x1="193.3" y1="20" x2="193.3" y2="156.0"/><line x1="267.5" y1="20" x2="267.5" y2="156.0"/><line x1="341.7" y1="20" x2="341.7" y2="156.0"/><line x1="415.8" y1="20" x2="415.8" y2="156.0"/><line x1="490.0" y1="20" x2="490.0" y2="156.0"/><line x1="45" y1="20.0" x2="490.0" y2="20.0"/><line x1="45" y1="47.2" x2="490.0" y2="47.2"/><line x1="45" y1="74.4" x2="490.0" y2="74.4"/><line x1="45" y1="101.6" x2="490.0" y2="101.6"/><line x1="45" y1="128.8" x2="490.0" y2="128.8"/><line x1="45" y1="156.0" x2="490.0" y2="156.0"/></g><rect x="45" y="20" width="445" height="136" fill="none" stroke="rgba(80,120,180,0.3)" stroke-width="1.5"/>
-          
-  <rect x="47.0" y="40.7" width="18.7" height="115.3" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="115.3;121.0;109.5;115.3" dur="1.60s" begin="0.00s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="40.7;35.0;46.5;40.7" dur="1.60s" begin="0.00s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="66.7" y="104.9" width="18.7" height="51.1" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="51.1;54.2;48.1;51.1" dur="1.40s" begin="0.00s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="104.9;101.8;107.9;104.9" dur="1.40s" begin="0.00s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="91.5" y="111.9" width="18.7" height="44.1" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="44.1;46.3;41.9;44.1" dur="1.69s" begin="0.18s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="111.9;109.7;114.1;111.9" dur="1.69s" begin="0.18s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="111.2" y="128.8" width="18.7" height="27.2" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="27.2;28.9;25.6;27.2" dur="1.51s" begin="0.18s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="128.8;127.1;130.4;128.8" dur="1.51s" begin="0.18s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="136.0" y="139.1" width="18.7" height="16.9" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="16.9;17.7;16.1;16.9" dur="1.78s" begin="0.36s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="139.1;138.3;139.9;139.1" dur="1.78s" begin="0.36s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="155.7" y="137.9" width="18.7" height="18.1" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="18.1;19.2;17.0;18.1" dur="1.62s" begin="0.36s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="137.9;136.8;139.0;137.9" dur="1.62s" begin="0.36s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="180.5" y="149.5" width="18.7" height="6.5" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="6.5;6.8;6.1;6.5" dur="1.87s" begin="0.54s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="149.5;149.2;149.9;149.5" dur="1.87s" begin="0.54s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="200.2" y="141.4" width="18.7" height="14.6" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="14.6;15.4;13.7;14.6" dur="1.73s" begin="0.54s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="141.4;140.6;142.3;141.4" dur="1.73s" begin="0.54s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="225.0" y="153.5" width="18.7" height="2.5" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="2.5;2.6;2.4;2.5" dur="1.96s" begin="0.72s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="153.5;153.4;153.6;153.5" dur="1.96s" begin="0.72s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="244.7" y="142.8" width="18.7" height="13.2" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="13.2;14.0;12.4;13.2" dur="1.84s" begin="0.72s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="142.8;142.0;143.6;142.8" dur="1.84s" begin="0.72s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="269.5" y="155.1" width="18.7" height="0.9" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="0.9;1.0;1.0;0.9" dur="2.05s" begin="0.90s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="155.1;155.0;155.0;155.1" dur="2.05s" begin="0.90s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="289.2" y="143.3" width="18.7" height="12.7" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="12.7;13.5;12.0;12.7" dur="1.95s" begin="0.90s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="143.3;142.5;144.0;143.3" dur="1.95s" begin="0.90s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="314.0" y="155.6" width="18.7" height="0.4" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="0.4;0.4;1.0;0.4" dur="2.14s" begin="1.08s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="155.6;155.6;155.0;155.6" dur="2.14s" begin="1.08s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="333.7" y="143.5" width="18.7" height="12.5" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="12.5;13.3;11.8;12.5" dur="2.06s" begin="1.08s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="143.5;142.7;144.2;143.5" dur="2.06s" begin="1.08s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="358.5" y="155.9" width="18.7" height="0.1" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="0.1;0.1;1.0;0.1" dur="2.23s" begin="1.26s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="155.9;155.9;155.0;155.9" dur="2.23s" begin="1.26s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="378.2" y="143.6" width="18.7" height="12.4" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="12.4;13.2;11.7;12.4" dur="2.17s" begin="1.26s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="143.6;142.8;144.3;143.6" dur="2.17s" begin="1.26s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="403.0" y="155.9" width="18.7" height="0.1" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="0.1;0.1;1.0;0.1" dur="2.32s" begin="1.44s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="155.9;155.9;155.0;155.9" dur="2.32s" begin="1.44s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="422.7" y="143.6" width="18.7" height="12.4" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="12.4;13.2;11.7;12.4" dur="2.28s" begin="1.44s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="143.6;142.8;144.3;143.6" dur="2.28s" begin="1.44s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="447.5" y="156.0" width="18.7" height="0.0" fill="rgba(78,168,255,0.68)">
-    <animate attributeName="height" values="0.0;0.0;1.0;0.0" dur="2.41s" begin="1.62s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="156.0;156.0;155.0;156.0" dur="2.41s" begin="1.62s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="467.2" y="143.6" width="18.7" height="12.4" fill="rgba(196,127,255,0.62)">
-    <animate attributeName="height" values="12.4;13.2;11.7;12.4" dur="2.39s" begin="1.62s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="143.6;142.8;144.3;143.6" dur="2.39s" begin="1.62s" repeatCount="indefinite"/>
-  </rect>
-          <rect x="45" y="7" width="11" height="4" fill="rgba(78,168,255,0.75)"/>
-          <text x="60" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">Gradient &#8722;</text>
-          <rect x="145" y="7" width="11" height="4" fill="rgba(196,127,255,0.7)"/>
-          <text x="160" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">Gradient + (G&#770;)</text>
-        </svg>
-      </div>
+  <!-- §5 -->
+  <section class="essay-section" id="s5">
+    <div class="section-marker"><span class="section-marker-num">§ 05</span><div class="section-marker-line"></div></div>
+    <h2>Entropia informacyjna —<br><em>Landauer i fizyczność wiedzy</em></h2>
+    <p>W roku 1948 Claude Shannon opublikował matematyczną teorię komunikacji. Miara niepewności, którą zaproponował dla źródła informacji, miała identyczną formę matematyczną co entropia termodynamiczna Boltzmanna. Shannon zapytany, dlaczego używa słowa „entropia" dla pojęcia informacyjnego, miał odpowiedzieć, że wzór jest ten sam, a nikt nie wie czym naprawdę jest entropia — więc w każdej debacie będzie miał przewagę. Żart zawierał głębszą prawdę niż się wydawało.</p>
+    <p>Rolf Landauer w roku 1961 pokazał, że ta zbieżność nie jest przypadkowa ani metaforyczna. Skasowanie jednego bitu informacji generuje co najmniej $k_B T \ln 2$ ciepła. Informacja jest fizyczna. Gradient informacyjny ma swój koszt energetyczny, którego nie można obejść żadnym sprytnym algorytmem.</p>
+    <div class="pq"><p>Propaganda nie jest tylko moralnym złem — jest termodynamicznym marnotrawstwem. Niszczy gradient informacyjny, który umożliwia efektywną koordynację układów złożonych, i zastępuje go gradientem sztucznym, którego koszt utrzymania jest wielokrotnie wyższy.</p></div>
+    <div class="fbox" data-label="Shannon 1948 / Landauer 1961">
+      $$H = -\sum_i p_i \log_2 p_i \qquad E_{\min} = k_B T \ln 2 \approx 2{,}87 \times 10^{-21}\ \text{J}\ \text{przy}\ 300\,\text{K}$$
+      <span class="fcomment">Kasowanie informacji ma nieusuwalne koszty fizyczne — informacja i entropia termodynamiczna są dwoma aspektami tej samej rzeczywistości.</span>
+    </div>
+  </section>
 
-      <!-- CHART 2: Entropy -->
-      <div class="chart-card">
-        <div class="chart-title">Entropia Shannona S(&lambda;)</div>
-        <div class="chart-desc">Krzywa od stanu struktury do Edenu S&#8346;&#8341;&#8339;=log(N). Punkt przesuwa się wzdłuż krzywej &mdash; reprezentuje aktualny stan układu między porządkiem a potencjalnością.</div>
-        <svg viewBox="0 0 500 180" width="100%" preserveAspectRatio="none" style="height:180px;display:block">
-          <rect width="500" height="180" fill="#0c1422" rx="6"/><g stroke="rgba(80,120,180,0.11)" stroke-width="1"><line x1="45.0" y1="20" x2="45.0" y2="156.0"/><line x1="119.2" y1="20" x2="119.2" y2="156.0"/><line x1="193.3" y1="20" x2="193.3" y2="156.0"/><line x1="267.5" y1="20" x2="267.5" y2="156.0"/><line x1="341.7" y1="20" x2="341.7" y2="156.0"/><line x1="415.8" y1="20" x2="415.8" y2="156.0"/><line x1="490.0" y1="20" x2="490.0" y2="156.0"/><line x1="45" y1="20.0" x2="490.0" y2="20.0"/><line x1="45" y1="47.2" x2="490.0" y2="47.2"/><line x1="45" y1="74.4" x2="490.0" y2="74.4"/><line x1="45" y1="101.6" x2="490.0" y2="101.6"/><line x1="45" y1="128.8" x2="490.0" y2="128.8"/><line x1="45" y1="156.0" x2="490.0" y2="156.0"/></g><rect x="45" y="20" width="445" height="136" fill="none" stroke="rgba(80,120,180,0.3)" stroke-width="1.5"/>
-          <line x1="45" y1="34.6" x2="490" y2="34.6" stroke="rgba(240,192,112,0.45)" stroke-width="1.5" stroke-dasharray="6,4"/>
-          <path d="M45.0,99.2 L50.6,96.7 L56.3,94.3 L61.9,91.8 L67.5,89.4 L73.2,87.0 L78.8,84.7 L84.4,82.4 L90.1,80.1 L95.7,77.9 L101.3,75.8 L107.0,73.7 L112.6,71.6 L118.2,69.6 L123.9,67.7 L129.5,65.9 L135.1,64.1 L140.8,62.4 L146.4,60.8 L152.0,59.3 L157.7,57.8 L163.3,56.4 L168.9,55.0 L174.6,53.8 L180.2,52.5 L185.8,51.4 L191.5,50.3 L197.1,49.3 L202.7,48.3 L208.4,47.4 L214.0,46.6 L219.6,45.8 L225.3,45.0 L230.9,44.3 L236.5,43.7 L242.2,43.0 L247.8,42.5 L253.4,41.9 L259.1,41.4 L264.7,40.9 L270.3,40.5 L275.9,40.1 L281.6,39.7 L287.2,39.3 L292.8,39.0 L298.5,38.7 L304.1,38.4 L309.7,38.1 L315.4,37.9 L321.0,37.6 L326.6,37.4 L332.3,37.2 L337.9,37.0 L343.5,36.8 L349.2,36.7 L354.8,36.5 L360.4,36.4 L366.1,36.3 L371.7,36.1 L377.3,36.0 L383.0,35.9 L388.6,35.8 L394.2,35.7 L399.9,35.6 L405.5,35.6 L411.1,35.5 L416.8,35.4 L422.4,35.4 L428.0,35.3 L433.7,35.3 L439.3,35.2 L444.9,35.2 L450.6,35.1 L456.2,35.1 L461.8,35.0 L467.5,35.0 L473.1,35.0 L478.7,34.9 L484.4,34.9 L490.0,34.9 L490.0,156.0 L45.0,156.0 Z" fill="rgba(79,255,200,0.07)" stroke="none"/>
-          <path d="M45.0,99.2 L50.6,96.7 L56.3,94.3 L61.9,91.8 L67.5,89.4 L73.2,87.0 L78.8,84.7 L84.4,82.4 L90.1,80.1 L95.7,77.9 L101.3,75.8 L107.0,73.7 L112.6,71.6 L118.2,69.6 L123.9,67.7 L129.5,65.9 L135.1,64.1 L140.8,62.4 L146.4,60.8 L152.0,59.3 L157.7,57.8 L163.3,56.4 L168.9,55.0 L174.6,53.8 L180.2,52.5 L185.8,51.4 L191.5,50.3 L197.1,49.3 L202.7,48.3 L208.4,47.4 L214.0,46.6 L219.6,45.8 L225.3,45.0 L230.9,44.3 L236.5,43.7 L242.2,43.0 L247.8,42.5 L253.4,41.9 L259.1,41.4 L264.7,40.9 L270.3,40.5 L275.9,40.1 L281.6,39.7 L287.2,39.3 L292.8,39.0 L298.5,38.7 L304.1,38.4 L309.7,38.1 L315.4,37.9 L321.0,37.6 L326.6,37.4 L332.3,37.2 L337.9,37.0 L343.5,36.8 L349.2,36.7 L354.8,36.5 L360.4,36.4 L366.1,36.3 L371.7,36.1 L377.3,36.0 L383.0,35.9 L388.6,35.8 L394.2,35.7 L399.9,35.6 L405.5,35.6 L411.1,35.5 L416.8,35.4 L422.4,35.4 L428.0,35.3 L433.7,35.3 L439.3,35.2 L444.9,35.2 L450.6,35.1 L456.2,35.1 L461.8,35.0 L467.5,35.0 L473.1,35.0 L478.7,34.9 L484.4,34.9 L490.0,34.9" fill="none" stroke="rgba(79,255,200,0.9)" stroke-width="2.5" stroke-linejoin="round"/>
-          <circle r="5" fill="rgba(79,255,200,1)">
-            <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-              <mpath href="#entropy-motion-path"/>
-            </animateMotion>
-          </circle>
-          <path id="entropy-motion-path" d="M45.0,99.2 L50.6,96.7 L56.3,94.3 L61.9,91.8 L67.5,89.4 L73.2,87.0 L78.8,84.7 L84.4,82.4 L90.1,80.1 L95.7,77.9 L101.3,75.8 L107.0,73.7 L112.6,71.6 L118.2,69.6 L123.9,67.7 L129.5,65.9 L135.1,64.1 L140.8,62.4 L146.4,60.8 L152.0,59.3 L157.7,57.8 L163.3,56.4 L168.9,55.0 L174.6,53.8 L180.2,52.5 L185.8,51.4 L191.5,50.3 L197.1,49.3 L202.7,48.3 L208.4,47.4 L214.0,46.6 L219.6,45.8 L225.3,45.0 L230.9,44.3 L236.5,43.7 L242.2,43.0 L247.8,42.5 L253.4,41.9 L259.1,41.4 L264.7,40.9 L270.3,40.5 L275.9,40.1 L281.6,39.7 L287.2,39.3 L292.8,39.0 L298.5,38.7 L304.1,38.4 L309.7,38.1 L315.4,37.9 L321.0,37.6 L326.6,37.4 L332.3,37.2 L337.9,37.0 L343.5,36.8 L349.2,36.7 L354.8,36.5 L360.4,36.4 L366.1,36.3 L371.7,36.1 L377.3,36.0 L383.0,35.9 L388.6,35.8 L394.2,35.7 L399.9,35.6 L405.5,35.6 L411.1,35.5 L416.8,35.4 L422.4,35.4 L428.0,35.3 L433.7,35.3 L439.3,35.2 L444.9,35.2 L450.6,35.1 L456.2,35.1 L461.8,35.0 L467.5,35.0 L473.1,35.0 L478.7,34.9 L484.4,34.9 L490.0,34.9" fill="none" stroke="none" visibility="hidden"/>
-          <rect x="45" y="7" width="11" height="4" fill="rgba(79,255,200,0.85)"/>
-          <text x="60" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">S(&lambda;)</text>
-          <rect x="130" y="9" width="14" height="2" fill="rgba(240,192,112,0.55)"/>
-          <text x="148" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">S&#8342;&#8341;&#8339; = log(N)</text>
-        </svg>
-      </div>
+  <div class="divider">· · ·</div>
 
-      <!-- CHART 3: Flux -->
-      <div class="chart-card">
-        <div class="chart-title">Propagacja strumienia J(x, t)</div>
-        <div class="chart-desc">Niebieski: strumień pod gradientem &#8722; wygasa eksponencjalnie. Czerwony: strumień pod gradientem + eksploruje przestrzeń i rośnie. Oba płyną w czasie.</div>
-        <svg viewBox="0 0 500 180" width="100%" preserveAspectRatio="none" style="height:180px;display:block">
-          <rect width="500" height="180" fill="#0c1422" rx="6"/><g stroke="rgba(80,120,180,0.11)" stroke-width="1"><line x1="45.0" y1="20" x2="45.0" y2="156.0"/><line x1="119.2" y1="20" x2="119.2" y2="156.0"/><line x1="193.3" y1="20" x2="193.3" y2="156.0"/><line x1="267.5" y1="20" x2="267.5" y2="156.0"/><line x1="341.7" y1="20" x2="341.7" y2="156.0"/><line x1="415.8" y1="20" x2="415.8" y2="156.0"/><line x1="490.0" y1="20" x2="490.0" y2="156.0"/><line x1="45" y1="20.0" x2="490.0" y2="20.0"/><line x1="45" y1="47.2" x2="490.0" y2="47.2"/><line x1="45" y1="74.4" x2="490.0" y2="74.4"/><line x1="45" y1="101.6" x2="490.0" y2="101.6"/><line x1="45" y1="128.8" x2="490.0" y2="128.8"/><line x1="45" y1="156.0" x2="490.0" y2="156.0"/></g><rect x="45" y="20" width="445" height="136" fill="none" stroke="rgba(80,120,180,0.3)" stroke-width="1.5"/>
-          <line x1="45" y1="88" x2="490" y2="88" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-          <clipPath id="flux-clip"><rect x="45" y="20" width="445" height="136"/></clipPath>
-          <g clip-path="url(#flux-clip)">
-            <g>
-              <path d="M45.0,133.3 L51.1,131.5 L57.2,129.3 L63.3,127.0 L69.4,124.4 L75.5,121.8 L81.6,119.0 L87.7,116.1 L93.8,113.2 L99.9,110.3 L106.0,107.4 L112.1,104.6 L118.2,101.8 L124.2,99.1 L130.3,96.4 L136.4,93.9 L142.5,91.6 L148.6,89.3 L154.7,87.3 L160.8,85.4 L166.9,83.6 L173.0,82.0 L179.1,80.6 L185.2,79.4 L191.3,78.3 L197.4,77.4 L203.5,76.7 L209.6,76.1 L215.7,75.7 L221.8,75.4 L227.9,75.2 L234.0,75.2 L240.1,75.3 L246.2,75.5 L252.3,75.8 L258.4,76.2 L264.5,76.6 L270.5,77.2 L276.6,77.8 L282.7,78.4 L288.8,79.1 L294.9,79.8 L301.0,80.5 L307.1,81.3 L313.2,82.0 L319.3,82.8 L325.4,83.5 L331.5,84.2 L337.6,84.9 L343.7,85.6 L349.8,86.3 L355.9,86.9 L362.0,87.5 L368.1,88.0 L374.2,88.5 L380.3,89.0 L386.4,89.4 L392.5,89.8 L398.6,90.1 L404.7,90.4 L410.8,90.7 L416.8,90.9 L422.9,91.0 L429.0,91.2 L435.1,91.2 L441.2,91.3 L447.3,91.3 L453.4,91.3 L459.5,91.3 L465.6,91.2 L471.7,91.1 L477.8,91.0 L483.9,90.8 L490.0,90.7 L496.1,90.5 L502.2,90.4 L508.3,90.2 L514.4,90.0 L520.5,89.8 L526.6,89.6 L532.7,89.4 L538.8,89.2 L544.9,89.0 L551.0,88.8 L557.1,88.7 L563.2,88.5 L569.2,88.3 L575.3,88.2 L581.4,88.0 L587.5,87.9 L593.6,87.8 L599.7,87.7 L605.8,87.6 L611.9,87.5 L618.0,87.4 L624.1,87.3 L630.2,87.3 L636.3,87.2 L642.4,87.2 L648.5,87.2 L654.6,87.2 L660.7,87.1 L666.8,87.1 L672.9,87.2 L679.0,87.2 L685.1,87.2 L691.2,87.2 L697.3,87.3 L703.4,87.3 L709.5,87.3 L715.5,87.4 L721.6,87.4 L727.7,87.5 L733.8,87.5 L739.9,87.6 L746.0,87.6 L752.1,87.7 L758.2,87.7 L764.3,87.8 L770.4,87.8 L776.5,87.9 L782.6,87.9 L788.7,87.9 L794.8,88.0 L800.9,88.0 L807.0,88.1 L813.1,88.1 L819.2,88.1 L825.3,88.1 L831.4,88.2 L837.5,88.2 L843.6,88.2 L849.7,88.2 L855.8,88.2 L861.8,88.2 L867.9,88.2 L874.0,88.2 L880.1,88.2 L886.2,88.2 L892.3,88.2 L898.4,88.2 L904.5,88.2 L910.6,88.2 L916.7,88.2 L922.8,88.2 L928.9,88.2 L935.0,88.2 L941.1,88.1 L947.2,88.1 L953.3,88.1 L959.4,88.1 L965.5,88.1 L971.6,88.1 L977.7,88.1 L983.8,88.1 L989.9,88.0 L996.0,88.0 L1002.1,88.0 L1008.2,88.0 L1014.2,88.0 L1020.3,88.0 L1026.4,88.0 L1032.5,88.0 L1038.6,88.0 L1044.7,88.0 L1050.8,88.0 L1056.9,88.0 L1063.0,87.9 L1069.1,87.9 L1075.2,87.9 L1081.3,87.9 L1087.4,87.9 L1093.5,87.9 L1099.6,87.9 L1105.7,87.9 L1111.8,87.9 L1117.9,87.9 L1124.0,87.9 L1130.1,88.0 L1136.2,88.0 L1142.3,88.0 L1148.4,88.0 L1154.5,88.0 L1160.5,88.0 L1166.6,88.0 L1172.7,88.0 L1178.8,88.0 L1184.9,88.0 L1191.0,88.0 L1197.1,88.0 L1203.2,88.0 L1209.3,88.0 L1215.4,88.0 L1221.5,88.0 L1227.6,88.0 L1233.7,88.0 L1239.8,88.0 L1245.9,88.0 L1252.0,88.0 L1258.1,88.0 L1264.2,88.0 L1270.3,88.0 L1276.4,88.0 L1282.5,88.0 L1288.6,88.0 L1294.7,88.0 L1300.8,88.0 L1306.8,88.0 L1312.9,88.0 L1319.0,88.0 L1325.1,88.0 L1331.2,88.0 L1337.3,88.0 L1343.4,88.0 L1349.5,88.0 L1355.6,88.0 L1361.7,88.0 L1367.8,88.0 L1373.9,88.0 L1380.0,88.0" fill="none" stroke="rgba(78,168,255,0.9)" stroke-width="2" stroke-linejoin="round"/>
-              <animateTransform attributeName="transform" type="translate" from="0,0" to="-1335,0" dur="7s" repeatCount="indefinite"/>
-            </g>
-            <g>
-              <path d="M45.0,88.0 L51.1,84.5 L57.2,81.1 L63.3,77.8 L69.4,74.6 L75.5,71.5 L81.6,68.7 L87.7,66.0 L93.8,63.6 L99.9,61.5 L106.0,59.7 L112.1,58.2 L118.2,57.0 L124.2,56.1 L130.3,55.6 L136.4,55.4 L142.5,55.5 L148.6,56.0 L154.7,56.9 L160.8,58.0 L166.9,59.5 L173.0,61.3 L179.1,63.3 L185.2,65.6 L191.3,68.1 L197.4,70.8 L203.5,73.7 L209.6,76.7 L215.7,79.8 L221.8,82.9 L227.9,86.1 L234.0,89.4 L240.1,92.5 L246.2,95.6 L252.3,98.7 L258.4,101.6 L264.5,104.3 L270.5,106.8 L276.6,109.2 L282.7,111.3 L288.8,113.1 L294.9,114.7 L301.0,115.9 L307.1,116.9 L313.2,117.6 L319.3,117.9 L325.4,118.0 L331.5,117.7 L337.6,117.1 L343.7,116.2 L349.8,115.0 L355.9,113.5 L362.0,111.8 L368.1,109.9 L374.2,107.7 L380.3,105.3 L386.4,102.7 L392.5,100.0 L398.6,97.2 L404.7,94.4 L410.8,91.4 L416.8,88.5 L422.9,85.5 L429.0,82.6 L435.1,79.8 L441.2,77.1 L447.3,74.5 L453.4,72.0 L459.5,69.8 L465.6,67.7 L471.7,65.9 L477.8,64.3 L483.9,62.9 L490.0,61.9 L496.1,61.1 L502.2,60.6 L508.3,60.4 L514.4,60.5 L520.5,60.9 L526.6,61.6 L532.7,62.5 L538.8,63.7 L544.9,65.1 L551.0,66.8 L557.1,68.7 L563.2,70.8 L569.2,73.1 L575.3,75.5 L581.4,78.0 L587.5,80.6 L593.6,83.3 L599.7,86.0 L605.8,88.7 L611.9,91.4 L618.0,94.1 L624.1,96.6 L630.2,99.1 L636.3,101.4 L642.4,103.6 L648.5,105.6 L654.6,107.4 L660.7,109.0 L666.8,110.4 L672.9,111.5 L679.0,112.3 L685.1,113.0 L691.2,113.3 L697.3,113.4 L703.4,113.2 L709.5,112.7 L715.5,112.0 L721.6,111.0 L727.7,109.8 L733.8,108.4 L739.9,106.8 L746.0,104.9 L752.1,102.9 L758.2,100.8 L764.3,98.6 L770.4,96.2 L776.5,93.8 L782.6,91.3 L788.7,88.8 L794.8,86.3 L800.9,83.8 L807.0,81.4 L813.1,79.1 L819.2,76.9 L825.3,74.8 L831.4,72.9 L837.5,71.1 L843.6,69.5 L849.7,68.1 L855.8,67.0 L861.8,66.0 L867.9,65.3 L874.0,64.9 L880.1,64.7 L886.2,64.7 L892.3,65.0 L898.4,65.5 L904.5,66.3 L910.6,67.3 L916.7,68.5 L922.8,69.9 L928.9,71.4 L935.0,73.2 L941.1,75.1 L947.2,77.1 L953.3,79.2 L959.4,81.4 L965.5,83.7 L971.6,86.0 L977.7,88.3 L983.8,90.5 L989.9,92.8 L996.0,95.0 L1002.1,97.1 L1008.2,99.1 L1014.2,100.9 L1020.3,102.6 L1026.4,104.2 L1032.5,105.6 L1038.6,106.7 L1044.7,107.7 L1050.8,108.5 L1056.9,109.0 L1063.0,109.4 L1069.1,109.5 L1075.2,109.3 L1081.3,109.0 L1087.4,108.4 L1093.5,107.6 L1099.6,106.6 L1105.7,105.4 L1111.8,104.1 L1117.9,102.6 L1124.0,100.9 L1130.1,99.1 L1136.2,97.2 L1142.3,95.2 L1148.4,93.2 L1154.5,91.1 L1160.5,89.0 L1166.6,86.9 L1172.7,84.8 L1178.8,82.7 L1184.9,80.8 L1191.0,78.9 L1197.1,77.1 L1203.2,75.4 L1209.3,73.9 L1215.4,72.6 L1221.5,71.4 L1227.6,70.4 L1233.7,69.5 L1239.8,68.9 L1245.9,68.5 L1252.0,68.3 L1258.1,68.3 L1264.2,68.5 L1270.3,68.9 L1276.4,69.5 L1282.5,70.3 L1288.6,71.3 L1294.7,72.5 L1300.8,73.8 L1306.8,75.2 L1312.9,76.8 L1319.0,78.5 L1325.1,80.3 L1331.2,82.1 L1337.3,84.0 L1343.4,86.0 L1349.5,87.9 L1355.6,89.8 L1361.7,91.7 L1367.8,93.6 L1373.9,95.4 L1380.0,97.1 L1380.0,156.0 L45.0,156.0 Z" fill="rgba(255,107,107,0.07)" stroke="none"/>
-              <path d="M45.0,88.0 L51.1,84.5 L57.2,81.1 L63.3,77.8 L69.4,74.6 L75.5,71.5 L81.6,68.7 L87.7,66.0 L93.8,63.6 L99.9,61.5 L106.0,59.7 L112.1,58.2 L118.2,57.0 L124.2,56.1 L130.3,55.6 L136.4,55.4 L142.5,55.5 L148.6,56.0 L154.7,56.9 L160.8,58.0 L166.9,59.5 L173.0,61.3 L179.1,63.3 L185.2,65.6 L191.3,68.1 L197.4,70.8 L203.5,73.7 L209.6,76.7 L215.7,79.8 L221.8,82.9 L227.9,86.1 L234.0,89.4 L240.1,92.5 L246.2,95.6 L252.3,98.7 L258.4,101.6 L264.5,104.3 L270.5,106.8 L276.6,109.2 L282.7,111.3 L288.8,113.1 L294.9,114.7 L301.0,115.9 L307.1,116.9 L313.2,117.6 L319.3,117.9 L325.4,118.0 L331.5,117.7 L337.6,117.1 L343.7,116.2 L349.8,115.0 L355.9,113.5 L362.0,111.8 L368.1,109.9 L374.2,107.7 L380.3,105.3 L386.4,102.7 L392.5,100.0 L398.6,97.2 L404.7,94.4 L410.8,91.4 L416.8,88.5 L422.9,85.5 L429.0,82.6 L435.1,79.8 L441.2,77.1 L447.3,74.5 L453.4,72.0 L459.5,69.8 L465.6,67.7 L471.7,65.9 L477.8,64.3 L483.9,62.9 L490.0,61.9 L496.1,61.1 L502.2,60.6 L508.3,60.4 L514.4,60.5 L520.5,60.9 L526.6,61.6 L532.7,62.5 L538.8,63.7 L544.9,65.1 L551.0,66.8 L557.1,68.7 L563.2,70.8 L569.2,73.1 L575.3,75.5 L581.4,78.0 L587.5,80.6 L593.6,83.3 L599.7,86.0 L605.8,88.7 L611.9,91.4 L618.0,94.1 L624.1,96.6 L630.2,99.1 L636.3,101.4 L642.4,103.6 L648.5,105.6 L654.6,107.4 L660.7,109.0 L666.8,110.4 L672.9,111.5 L679.0,112.3 L685.1,113.0 L691.2,113.3 L697.3,113.4 L703.4,113.2 L709.5,112.7 L715.5,112.0 L721.6,111.0 L727.7,109.8 L733.8,108.4 L739.9,106.8 L746.0,104.9 L752.1,102.9 L758.2,100.8 L764.3,98.6 L770.4,96.2 L776.5,93.8 L782.6,91.3 L788.7,88.8 L794.8,86.3 L800.9,83.8 L807.0,81.4 L813.1,79.1 L819.2,76.9 L825.3,74.8 L831.4,72.9 L837.5,71.1 L843.6,69.5 L849.7,68.1 L855.8,67.0 L861.8,66.0 L867.9,65.3 L874.0,64.9 L880.1,64.7 L886.2,64.7 L892.3,65.0 L898.4,65.5 L904.5,66.3 L910.6,67.3 L916.7,68.5 L922.8,69.9 L928.9,71.4 L935.0,73.2 L941.1,75.1 L947.2,77.1 L953.3,79.2 L959.4,81.4 L965.5,83.7 L971.6,86.0 L977.7,88.3 L983.8,90.5 L989.9,92.8 L996.0,95.0 L1002.1,97.1 L1008.2,99.1 L1014.2,100.9 L1020.3,102.6 L1026.4,104.2 L1032.5,105.6 L1038.6,106.7 L1044.7,107.7 L1050.8,108.5 L1056.9,109.0 L1063.0,109.4 L1069.1,109.5 L1075.2,109.3 L1081.3,109.0 L1087.4,108.4 L1093.5,107.6 L1099.6,106.6 L1105.7,105.4 L1111.8,104.1 L1117.9,102.6 L1124.0,100.9 L1130.1,99.1 L1136.2,97.2 L1142.3,95.2 L1148.4,93.2 L1154.5,91.1 L1160.5,89.0 L1166.6,86.9 L1172.7,84.8 L1178.8,82.7 L1184.9,80.8 L1191.0,78.9 L1197.1,77.1 L1203.2,75.4 L1209.3,73.9 L1215.4,72.6 L1221.5,71.4 L1227.6,70.4 L1233.7,69.5 L1239.8,68.9 L1245.9,68.5 L1252.0,68.3 L1258.1,68.3 L1264.2,68.5 L1270.3,68.9 L1276.4,69.5 L1282.5,70.3 L1288.6,71.3 L1294.7,72.5 L1300.8,73.8 L1306.8,75.2 L1312.9,76.8 L1319.0,78.5 L1325.1,80.3 L1331.2,82.1 L1337.3,84.0 L1343.4,86.0 L1349.5,87.9 L1355.6,89.8 L1361.7,91.7 L1367.8,93.6 L1373.9,95.4 L1380.0,97.1" fill="none" stroke="rgba(255,107,107,0.9)" stroke-width="2" stroke-linejoin="round"/>
-              <animateTransform attributeName="transform" type="translate" from="-1335,0" to="0,0" dur="5s" repeatCount="indefinite"/>
-            </g>
-          </g>
-          <rect x="45" y="7" width="11" height="4" fill="rgba(78,168,255,0.85)"/>
-          <text x="60" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">J&#8407; gradient &#8722;</text>
-          <rect x="185" y="7" width="11" height="4" fill="rgba(255,107,107,0.85)"/>
-          <text x="200" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">J&#8407;&#8299; gradient +</text>
-        </svg>
-      </div>
+  <!-- §6 -->
+  <section class="essay-section" id="s6">
+    <div class="section-marker"><span class="section-marker-num">§ 06</span><div class="section-marker-line"></div></div>
+    <h2>Świadomość jako<br><em>modulator przestrzeni fazowej</em></h2>
+    <p>Metafora świadomości jako „lokalnego wiru porządku w rzece rosnącej entropii" jest piękna i precyzyjna — ale nie wyczerpuje jej fizycznej osobliwości. Wir w rzece jest strukturą dysypatywną: istnieje kosztem przepływu rzeki, ale jednocześnie organizuje ten przepływ, tworzy lokalne gradienty ciśnienia i wpływa na inne wiry. Jest zarówno kosztem gradientu rzeki, jak i aktorem modyfikującym gradient dla innych.</p>
+    <p>Świadomość — jeśli potraktować ją poważnie jako strukturę dysypatywną mózgu — nie jest biernym obserwatorem gradientu entropii. Jest aktywnym modulatorem przestrzeni fazowej: przez wybory, przez uwagę, przez budowanie struktur informacyjnych, zmienia topografię gradientów dostępnych innym układom. Nauczyciel zmienia gradient przestrzeni poznawczej uczniów. Instytucja zaufania obniża koszt termodynamiczny koordynacji zbiorowej.</p>
+    <div class="snote"><p>Mózg ludzki zużywa około 20 watów przy masie stanowiącej 2% masy ciała. Jest strukturą dysypatywną o wyjątkowo wysokiej gęstości przepływu energii — co zgodnie z teorią Prigogine'a odpowiada możliwości utrzymywania wyjątkowo złożonych struktur stacjonarnych. Świadomość jest termodynamicznie kosztowna, bo jest termodynamicznie złożona.</p></div>
+    <p>Świadomość jest jedynym układem dysypatywnym, który może świadomie projektować własne warunki brzegowe. To jest fizyczny opis wolności: nie brak determinizmu, lecz zdolność do rekonfiguracji własnej przestrzeni fazowej przez wewnętrzny akt wyboru kierunku gradientu.</p>
+  </section>
 
-      <!-- CHART 4: Lambda(t) sabbath -->
-      <div class="chart-card">
-        <div class="chart-title">&#1506; &#8594; &#1488; &nbsp; Szabat &mdash; rytm &lambda;(t)</div>
-        <div class="chart-desc">Szczyty co 7 jednostek = moment skierowania Ayin ku Alef. Wola jako mały Eden. Punkt animowany porusza się po krzywej czasu.</div>
-        <svg viewBox="0 0 500 180" width="100%" preserveAspectRatio="none" style="height:180px;display:block">
-          <rect width="500" height="180" fill="#0c1422" rx="6"/><g stroke="rgba(80,120,180,0.11)" stroke-width="1"><line x1="45.0" y1="20" x2="45.0" y2="156.0"/><line x1="119.2" y1="20" x2="119.2" y2="156.0"/><line x1="193.3" y1="20" x2="193.3" y2="156.0"/><line x1="267.5" y1="20" x2="267.5" y2="156.0"/><line x1="341.7" y1="20" x2="341.7" y2="156.0"/><line x1="415.8" y1="20" x2="415.8" y2="156.0"/><line x1="490.0" y1="20" x2="490.0" y2="156.0"/><line x1="45" y1="20.0" x2="490.0" y2="20.0"/><line x1="45" y1="47.2" x2="490.0" y2="47.2"/><line x1="45" y1="74.4" x2="490.0" y2="74.4"/><line x1="45" y1="101.6" x2="490.0" y2="101.6"/><line x1="45" y1="128.8" x2="490.0" y2="128.8"/><line x1="45" y1="156.0" x2="490.0" y2="156.0"/></g><rect x="45" y="20" width="445" height="136" fill="none" stroke="rgba(80,120,180,0.3)" stroke-width="1.5"/>
-          <rect x="109" y="20" width="20" height="136" fill="rgba(196,127,255,0.05)"/>
-  <rect x="183" y="20" width="20" height="136" fill="rgba(196,127,255,0.05)"/>
-  <rect x="258" y="20" width="20" height="136" fill="rgba(196,127,255,0.05)"/>
-  <rect x="332" y="20" width="20" height="136" fill="rgba(196,127,255,0.05)"/>
-  <rect x="406" y="20" width="20" height="136" fill="rgba(196,127,255,0.05)"/>
-  <rect x="480" y="20" width="20" height="136" fill="rgba(196,127,255,0.05)"/>
+  <div class="divider">· · ·</div>
+
+  <!-- §7 -->
+  <section class="essay-section" id="s7">
+    <div class="section-marker"><span class="section-marker-num">§ 07</span><div class="section-marker-line"></div></div>
+    <h2>Kosmiczny gradient —<br><em>strzałka czasu i jej źródło</em></h2>
+    <p>Strzałka czasu — asymetria między przeszłością a przyszłością — ma swoje źródło w niezwykle niskiej entropii Wszechświata tuż po Wielkim Wybuchu. Roger Penrose szacował, że prawdopodobieństwo wylosowania stanu o tak niskim $\Omega$ jak stan zaraz po Wielkim Wybuchu wynosi $1$ do $10^{10^{123}}$. Liczba ta przekracza liczbę cząstek w obserwowalnym Wszechświecie o dziesiątki rzędów wielkości.</p>
+    <p>Słońce nie jest źródłem energii w sensie absolutnym. Jest pośrednikiem między niską entropią jądrową a wysoką entropią promieniowania podczerwonego emitowanego przez Ziemię w przestrzeń kosmiczną. Życie na Ziemi istnieje w tym gradiencie jak turbina w strumieniu wody — przetwarzając różnicę potencjałów między gorącym Słońcem a zimną przestrzenią kosmiczną w lokalne struktury stacjonarne o rosnącej złożoności.</p>
+    <div class="pq"><p>Cały gradient, który napędza wszystkie procesy — gwiazdy, życie, świadomość — jest rozładowywaniem pierwotnej asymetrii Wielkiego Wybuchu. Jesteśmy echem tamtego niskiego $\Omega$, rozbrzmiewającym przez 13,8 miliarda lat.</p></div>
+    <p>Fizyk Eric Schneider sformułował to prowokacyjnie: życie nie walczy z entropią — życie przyspiesza jej globalny wzrost przez budowanie lokalnych struktur dysypatywnych o rosnącej wydajności rozpraszania. Człowiek budujący kulturę i instytucje nie jest anomalią w kosmosie — jest jego najbardziej zaawansowanym narzędziem realizacji gradientu.</p>
+  </section>
+
+  <div class="divider">· · ·</div>
+
   
-          <path d="M45.0,114.5 L48.7,113.4 L52.5,113.4 L56.2,114.2 L60.0,115.1 L63.7,113.8 L67.4,107.0 L71.2,93.0 L74.9,74.2 L78.7,58.0 L82.4,52.4 L86.1,60.4 L89.9,77.8 L93.6,96.3 L97.4,109.2 L101.1,114.9 L104.8,115.5 L108.6,114.3 L112.3,113.4 L116.1,113.4 L119.8,114.5 L123.5,116.4 L127.3,119.0 L131.0,121.9 L134.7,124.6 L138.5,126.9 L142.2,128.4 L146.0,128.9 L149.7,128.4 L153.4,126.8 L157.2,124.5 L160.9,121.7 L164.7,118.8 L168.4,116.3 L172.1,114.4 L175.9,113.4 L179.6,113.4 L183.4,114.5 L187.1,116.5 L190.8,119.1 L194.6,122.0 L198.3,124.8 L202.1,127.0 L205.8,128.2 L209.5,126.9 L213.3,120.8 L217.0,107.2 L220.8,85.9 L224.5,62.2 L228.2,44.7 L232.0,40.9 L235.7,51.8 L239.5,71.4 L243.2,91.2 L246.9,105.6 L250.7,114.1 L254.4,118.8 L258.2,122.1 L261.9,124.9 L265.6,127.1 L269.4,128.5 L273.1,128.9 L276.8,128.3 L280.6,126.6 L284.3,124.3 L288.1,121.4 L291.8,118.6 L295.5,116.1 L299.3,114.2 L303.0,113.3 L306.8,113.5 L310.5,114.7 L314.2,116.7 L318.0,119.4 L321.7,122.3 L325.5,125.0 L329.2,127.2 L332.9,128.6 L336.7,128.9 L340.4,128.2 L344.2,126.5 L347.9,124.1 L351.6,121.3 L355.4,117.8 L359.1,112.7 L362.9,103.5 L366.6,88.1 L370.3,68.0 L374.1,49.4 L377.8,40.7 L381.6,47.1 L385.3,66.3 L389.0,90.2 L392.8,110.2 L396.5,122.4 L400.3,127.4 L404.0,127.9 L407.7,126.4 L411.5,124.0 L415.2,121.2 L418.9,118.3 L422.7,115.9 L426.4,114.1 L430.2,113.3 L433.9,113.6 L437.6,114.8 L441.4,116.9 L445.1,119.6 L448.9,122.5 L452.6,125.2 L456.3,127.3 L460.1,128.6 L463.8,128.9 L467.6,128.1 L471.3,126.4 L475.0,123.9 L478.8,121.1 L482.5,118.2 L486.3,115.8 L490.0,114.1 L490.0,156.0 L45.0,156.0 Z" fill="rgba(196,127,255,0.08)" stroke="none"/>
-          <path d="M45.0,114.5 L48.7,113.4 L52.5,113.4 L56.2,114.2 L60.0,115.1 L63.7,113.8 L67.4,107.0 L71.2,93.0 L74.9,74.2 L78.7,58.0 L82.4,52.4 L86.1,60.4 L89.9,77.8 L93.6,96.3 L97.4,109.2 L101.1,114.9 L104.8,115.5 L108.6,114.3 L112.3,113.4 L116.1,113.4 L119.8,114.5 L123.5,116.4 L127.3,119.0 L131.0,121.9 L134.7,124.6 L138.5,126.9 L142.2,128.4 L146.0,128.9 L149.7,128.4 L153.4,126.8 L157.2,124.5 L160.9,121.7 L164.7,118.8 L168.4,116.3 L172.1,114.4 L175.9,113.4 L179.6,113.4 L183.4,114.5 L187.1,116.5 L190.8,119.1 L194.6,122.0 L198.3,124.8 L202.1,127.0 L205.8,128.2 L209.5,126.9 L213.3,120.8 L217.0,107.2 L220.8,85.9 L224.5,62.2 L228.2,44.7 L232.0,40.9 L235.7,51.8 L239.5,71.4 L243.2,91.2 L246.9,105.6 L250.7,114.1 L254.4,118.8 L258.2,122.1 L261.9,124.9 L265.6,127.1 L269.4,128.5 L273.1,128.9 L276.8,128.3 L280.6,126.6 L284.3,124.3 L288.1,121.4 L291.8,118.6 L295.5,116.1 L299.3,114.2 L303.0,113.3 L306.8,113.5 L310.5,114.7 L314.2,116.7 L318.0,119.4 L321.7,122.3 L325.5,125.0 L329.2,127.2 L332.9,128.6 L336.7,128.9 L340.4,128.2 L344.2,126.5 L347.9,124.1 L351.6,121.3 L355.4,117.8 L359.1,112.7 L362.9,103.5 L366.6,88.1 L370.3,68.0 L374.1,49.4 L377.8,40.7 L381.6,47.1 L385.3,66.3 L389.0,90.2 L392.8,110.2 L396.5,122.4 L400.3,127.4 L404.0,127.9 L407.7,126.4 L411.5,124.0 L415.2,121.2 L418.9,118.3 L422.7,115.9 L426.4,114.1 L430.2,113.3 L433.9,113.6 L437.6,114.8 L441.4,116.9 L445.1,119.6 L448.9,122.5 L452.6,125.2 L456.3,127.3 L460.1,128.6 L463.8,128.9 L467.6,128.1 L471.3,126.4 L475.0,123.9 L478.8,121.1 L482.5,118.2 L486.3,115.8 L490.0,114.1" fill="none" stroke="rgba(196,127,255,0.9)" stroke-width="2.5" stroke-linejoin="round"/>
-          <circle r="5" fill="rgba(196,127,255,1)">
-            <animateMotion dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;0" keyTimes="0;0.5;1">
-              <mpath href="#lambda-motion-path"/>
-            </animateMotion>
-          </circle>
-          <path id="lambda-motion-path" d="M45.0,114.5 L48.7,113.4 L52.5,113.4 L56.2,114.2 L60.0,115.1 L63.7,113.8 L67.4,107.0 L71.2,93.0 L74.9,74.2 L78.7,58.0 L82.4,52.4 L86.1,60.4 L89.9,77.8 L93.6,96.3 L97.4,109.2 L101.1,114.9 L104.8,115.5 L108.6,114.3 L112.3,113.4 L116.1,113.4 L119.8,114.5 L123.5,116.4 L127.3,119.0 L131.0,121.9 L134.7,124.6 L138.5,126.9 L142.2,128.4 L146.0,128.9 L149.7,128.4 L153.4,126.8 L157.2,124.5 L160.9,121.7 L164.7,118.8 L168.4,116.3 L172.1,114.4 L175.9,113.4 L179.6,113.4 L183.4,114.5 L187.1,116.5 L190.8,119.1 L194.6,122.0 L198.3,124.8 L202.1,127.0 L205.8,128.2 L209.5,126.9 L213.3,120.8 L217.0,107.2 L220.8,85.9 L224.5,62.2 L228.2,44.7 L232.0,40.9 L235.7,51.8 L239.5,71.4 L243.2,91.2 L246.9,105.6 L250.7,114.1 L254.4,118.8 L258.2,122.1 L261.9,124.9 L265.6,127.1 L269.4,128.5 L273.1,128.9 L276.8,128.3 L280.6,126.6 L284.3,124.3 L288.1,121.4 L291.8,118.6 L295.5,116.1 L299.3,114.2 L303.0,113.3 L306.8,113.5 L310.5,114.7 L314.2,116.7 L318.0,119.4 L321.7,122.3 L325.5,125.0 L329.2,127.2 L332.9,128.6 L336.7,128.9 L340.4,128.2 L344.2,126.5 L347.9,124.1 L351.6,121.3 L355.4,117.8 L359.1,112.7 L362.9,103.5 L366.6,88.1 L370.3,68.0 L374.1,49.4 L377.8,40.7 L381.6,47.1 L385.3,66.3 L389.0,90.2 L392.8,110.2 L396.5,122.4 L400.3,127.4 L404.0,127.9 L407.7,126.4 L411.5,124.0 L415.2,121.2 L418.9,118.3 L422.7,115.9 L426.4,114.1 L430.2,113.3 L433.9,113.6 L437.6,114.8 L441.4,116.9 L445.1,119.6 L448.9,122.5 L452.6,125.2 L456.3,127.3 L460.1,128.6 L463.8,128.9 L467.6,128.1 L471.3,126.4 L475.0,123.9 L478.8,121.1 L482.5,118.2 L486.3,115.8 L490.0,114.1" fill="none" stroke="none" visibility="hidden"/>
-          <text x="119" y="38" fill="rgba(196,127,255,0.4)" font-family="monospace" font-size="11" text-anchor="middle">&#1488;</text>
-          <text x="193" y="38" fill="rgba(196,127,255,0.4)" font-family="monospace" font-size="11" text-anchor="middle">&#1488;</text>
-          <text x="268" y="38" fill="rgba(196,127,255,0.4)" font-family="monospace" font-size="11" text-anchor="middle">&#1488;</text>
-          <rect x="45" y="7" width="11" height="4" fill="rgba(196,127,255,0.85)"/>
-          <text x="60" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">&lambda;(t) &mdash; intensywność G&#770;</text>
-        </svg>
+
+  <div class="interactive-wrap" id="viz">
+    <div class="interactive-header">
+      <span class="interactive-title">Wizualizacje interaktywne</span>
+      <span class="interactive-subtitle">Modyfikuj parametry — obserwuj mechanizm</span>
+    </div>
+
+    <div class="iw-tabs">
+      <button class="iw-tab on"  data-p="p1">Przestrzeń fazowa</button>
+      <button class="iw-tab"     data-p="p2">Gradient &amp; Fala</button>
+      <button class="iw-tab"     data-p="p3">Widmo kwantowe</button>
+      <button class="iw-tab"     data-p="p4">Entropia inf.</button>
+      <button class="iw-tab"     data-p="p5">Skala temperatur</button>
+    </div>
+
+    <div class="iw-stack">
+
+      <!-- P1 Maxwell-Boltzmann -->
+      <div class="iw-panel on" id="p1">
+        <svg id="g1" class="iw-svg" height="320"></svg>
+        <div class="iw-ctrl">
+          <div class="iw-c"><span class="iw-cl">Temperatura T [K]</span>
+            <input type="range" id="r1T" min="100" max="2000" value="600">
+            <span class="iw-cv" id="d1T">600 K</span></div>
+          <div class="iw-c"><span class="iw-cl">Gradient G [%]</span>
+            <input type="range" id="r1G" min="0" max="100" value="0">
+            <span class="iw-cv" id="d1G">0 %</span></div>
+        </div>
+        <div class="iw-desc">Rozkład Maxwella-Boltzmanna prędkości cząstek gazu. Przy G=0 przestrzeń fazowa jest izotropowa. Gradient G polaryzuje rozkład — pewne prędkości stają się statystycznie uprzywilejowane.</div>
       </div>
 
-      <!-- CHART 5: Wave superposition - wide -->
-      <div class="chart-card chart-wide">
-        <div class="chart-title">Superpozycja |&psi;|&sup2; &mdash; &#1488;&#1493;&#1512; i &#1506;&#1493;&#1512; w przestrzeni stanów</div>
-        <div class="chart-desc">Niebieski wąski pik = stan własny H&#770; &mdash; materia, granica, skóra (&#1506;&#1493;&#1512;). Czerwona fala = H&#770;+&lambda;G&#770; &mdash; eksploracja, potencjalność, światło (&#1488;&#1493;&#1512;). Fioletowy: przestrzeń Edenu. Czerwona fala oscyluje w czasie.</div>
-        <svg viewBox="0 0 960 180" width="100%" preserveAspectRatio="none" style="height:180px;display:block">
-          <rect width="960" height="180" fill="#0c1422" rx="6"/><g stroke="rgba(80,120,180,0.11)" stroke-width="1"><line x1="45.0" y1="20" x2="45.0" y2="156.0"/><line x1="158.1" y1="20" x2="158.1" y2="156.0"/><line x1="271.2" y1="20" x2="271.2" y2="156.0"/><line x1="384.4" y1="20" x2="384.4" y2="156.0"/><line x1="497.5" y1="20" x2="497.5" y2="156.0"/><line x1="610.6" y1="20" x2="610.6" y2="156.0"/><line x1="723.8" y1="20" x2="723.8" y2="156.0"/><line x1="836.9" y1="20" x2="836.9" y2="156.0"/><line x1="950.0" y1="20" x2="950.0" y2="156.0"/><line x1="45" y1="20.0" x2="950.0" y2="20.0"/><line x1="45" y1="47.2" x2="950.0" y2="47.2"/><line x1="45" y1="74.4" x2="950.0" y2="74.4"/><line x1="45" y1="101.6" x2="950.0" y2="101.6"/><line x1="45" y1="128.8" x2="950.0" y2="128.8"/><line x1="45" y1="156.0" x2="950.0" y2="156.0"/></g><rect x="45" y="20" width="905" height="136" fill="none" stroke="rgba(80,120,180,0.3)" stroke-width="1.5"/>
-          <path d="M45.0,87.1 L49.5,87.1 L54.1,87.1 L58.6,87.1 L63.2,87.1 L67.7,87.1 L72.3,87.1 L76.8,87.1 L81.4,87.1 L85.9,87.1 L90.5,87.1 L95.0,87.1 L99.6,87.1 L104.1,87.1 L108.7,87.1 L113.2,87.1 L117.8,87.1 L122.3,87.1 L126.9,87.1 L131.4,87.1 L136.0,87.1 L140.5,87.1 L145.1,87.1 L149.6,87.1 L154.1,87.1 L158.7,87.1 L163.2,87.1 L167.8,87.1 L172.3,87.1 L176.9,87.1 L181.4,87.1 L186.0,87.1 L190.5,87.1 L195.1,87.1 L199.6,87.1 L204.2,87.1 L208.7,87.1 L213.3,87.1 L217.8,87.1 L222.4,87.1 L226.9,87.1 L231.5,87.1 L236.0,87.1 L240.6,87.1 L245.1,87.1 L249.6,87.1 L254.2,87.1 L258.7,87.1 L263.3,87.1 L267.8,87.1 L272.4,87.1 L276.9,87.1 L281.5,87.1 L286.0,87.1 L290.6,87.1 L295.1,87.1 L299.7,87.1 L304.2,87.1 L308.8,87.1 L313.3,87.1 L317.9,87.1 L322.4,87.1 L327.0,87.1 L331.5,87.1 L336.1,87.1 L340.6,87.1 L345.2,87.1 L349.7,87.1 L354.2,87.1 L358.8,87.1 L363.3,87.1 L367.9,87.1 L372.4,87.1 L377.0,87.1 L381.5,87.1 L386.1,87.1 L390.6,87.1 L395.2,87.1 L399.7,87.1 L404.3,87.1 L408.8,87.1 L413.4,87.1 L417.9,87.1 L422.5,87.1 L427.0,87.1 L431.6,87.1 L436.1,87.1 L440.7,87.1 L445.2,87.1 L449.7,87.1 L454.3,87.1 L458.8,87.1 L463.4,87.1 L467.9,87.1 L472.5,87.1 L477.0,87.1 L481.6,87.1 L486.1,87.1 L490.7,87.1 L495.2,87.1 L499.8,87.1 L504.3,87.1 L508.9,87.1 L513.4,87.1 L518.0,87.1 L522.5,87.1 L527.1,87.1 L531.6,87.1 L536.2,87.1 L540.7,87.1 L545.3,87.1 L549.8,87.1 L554.3,87.1 L558.9,87.1 L563.4,87.1 L568.0,87.1 L572.5,87.1 L577.1,87.1 L581.6,87.1 L586.2,87.1 L590.7,87.1 L595.3,87.1 L599.8,87.1 L604.4,87.1 L608.9,87.1 L613.5,87.1 L618.0,87.1 L622.6,87.1 L627.1,87.1 L631.7,87.1 L636.2,87.1 L640.8,87.1 L645.3,87.1 L649.8,87.1 L654.4,87.1 L658.9,87.1 L663.5,87.1 L668.0,87.1 L672.6,87.1 L677.1,87.1 L681.7,87.1 L686.2,87.1 L690.8,87.1 L695.3,87.1 L699.9,87.1 L704.4,87.1 L709.0,87.1 L713.5,87.1 L718.1,87.1 L722.6,87.1 L727.2,87.1 L731.7,87.1 L736.3,87.1 L740.8,87.1 L745.4,87.1 L749.9,87.1 L754.4,87.1 L759.0,87.1 L763.5,87.1 L768.1,87.1 L772.6,87.1 L777.2,87.1 L781.7,87.1 L786.3,87.1 L790.8,87.1 L795.4,87.1 L799.9,87.1 L804.5,87.1 L809.0,87.1 L813.6,87.1 L818.1,87.1 L822.7,87.1 L827.2,87.1 L831.8,87.1 L836.3,87.1 L840.9,87.1 L845.4,87.1 L849.9,87.1 L854.5,87.1 L859.0,87.1 L863.6,87.1 L868.1,87.1 L872.7,87.1 L877.2,87.1 L881.8,87.1 L886.3,87.1 L890.9,87.1 L895.4,87.1 L900.0,87.1 L904.5,87.1 L909.1,87.1 L913.6,87.1 L918.2,87.1 L922.7,87.1 L927.3,87.1 L931.8,87.1 L936.4,87.1 L940.9,87.1 L945.5,87.1 L950.0,87.1 L950.0,156.0 L45.0,156.0 Z" fill="rgba(196,127,255,0.07)" stroke="none"/>
-          <path d="M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.9 L172.3,155.9 L176.9,155.9 L181.4,155.9 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.9 L208.7,155.9 L213.3,155.9 L217.8,155.9 L222.4,155.9 L226.9,156.0 L231.5,156.0 L236.0,156.0 L240.6,156.0 L245.1,156.0 L249.6,156.0 L254.2,156.0 L258.7,156.0 L263.3,156.0 L267.8,155.9 L272.4,155.9 L276.9,155.8 L281.5,155.7 L286.0,155.6 L290.6,155.4 L295.1,155.2 L299.7,154.9 L304.2,154.5 L308.8,154.1 L313.3,153.5 L317.9,152.9 L322.4,152.2 L327.0,151.3 L331.5,150.3 L336.1,149.1 L340.6,147.8 L345.2,146.2 L349.7,144.5 L354.2,142.7 L358.8,140.5 L363.3,138.2 L367.9,135.7 L372.4,132.9 L377.0,130.0 L381.5,126.8 L386.1,123.3 L390.6,119.7 L395.2,115.9 L399.7,111.9 L404.3,107.8 L408.8,103.5 L413.4,99.1 L417.9,94.6 L422.5,90.1 L427.0,85.5 L431.6,81.0 L436.1,76.5 L440.7,72.2 L445.2,67.9 L449.7,63.9 L454.3,60.0 L458.8,56.4 L463.4,53.1 L467.9,50.2 L472.5,47.6 L477.0,45.4 L481.6,43.6 L486.1,42.2 L490.7,41.3 L495.2,40.8 L499.8,40.8 L504.3,41.3 L508.9,42.2 L513.4,43.6 L518.0,45.4 L522.5,47.6 L527.1,50.2 L531.6,53.1 L536.2,56.4 L540.7,60.0 L545.3,63.9 L549.8,67.9 L554.3,72.2 L558.9,76.5 L563.4,81.0 L568.0,85.5 L572.5,90.1 L577.1,94.6 L581.6,99.1 L586.2,103.5 L590.7,107.8 L595.3,111.9 L599.8,115.9 L604.4,119.7 L608.9,123.3 L613.5,126.8 L618.0,130.0 L622.6,132.9 L627.1,135.7 L631.7,138.2 L636.2,140.5 L640.8,142.7 L645.3,144.5 L649.8,146.2 L654.4,147.8 L658.9,149.1 L663.5,150.3 L668.0,151.3 L672.6,152.2 L677.1,152.9 L681.7,153.5 L686.2,154.1 L690.8,154.5 L695.3,154.9 L699.9,155.2 L704.4,155.4 L709.0,155.6 L713.5,155.7 L718.1,155.8 L722.6,155.9 L727.2,155.9 L731.7,156.0 L736.3,156.0 L740.8,156.0 L745.4,156.0 L749.9,156.0 L754.4,156.0 L759.0,156.0 L763.5,156.0 L768.1,156.0 L772.6,155.9 L777.2,155.9 L781.7,155.9 L786.3,155.9 L790.8,155.9 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,155.9 L818.1,155.9 L822.7,155.9 L827.2,155.9 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0" fill="rgba(255,107,107,0.07)" stroke="none" id="wf">
-            <animate attributeName="d" values="M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.9 L172.3,155.9 L176.9,155.9 L181.4,155.9 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.9 L208.7,155.9 L213.3,155.9 L217.8,155.9 L222.4,155.9 L226.9,156.0 L231.5,156.0 L236.0,156.0 L240.6,156.0 L245.1,156.0 L249.6,156.0 L254.2,156.0 L258.7,156.0 L263.3,156.0 L267.8,155.9 L272.4,155.9 L276.9,155.8 L281.5,155.7 L286.0,155.6 L290.6,155.4 L295.1,155.2 L299.7,154.9 L304.2,154.5 L308.8,154.1 L313.3,153.5 L317.9,152.9 L322.4,152.2 L327.0,151.3 L331.5,150.3 L336.1,149.1 L340.6,147.8 L345.2,146.2 L349.7,144.5 L354.2,142.7 L358.8,140.5 L363.3,138.2 L367.9,135.7 L372.4,132.9 L377.0,130.0 L381.5,126.8 L386.1,123.3 L390.6,119.7 L395.2,115.9 L399.7,111.9 L404.3,107.8 L408.8,103.5 L413.4,99.1 L417.9,94.6 L422.5,90.1 L427.0,85.5 L431.6,81.0 L436.1,76.5 L440.7,72.2 L445.2,67.9 L449.7,63.9 L454.3,60.0 L458.8,56.4 L463.4,53.1 L467.9,50.2 L472.5,47.6 L477.0,45.4 L481.6,43.6 L486.1,42.2 L490.7,41.3 L495.2,40.8 L499.8,40.8 L504.3,41.3 L508.9,42.2 L513.4,43.6 L518.0,45.4 L522.5,47.6 L527.1,50.2 L531.6,53.1 L536.2,56.4 L540.7,60.0 L545.3,63.9 L549.8,67.9 L554.3,72.2 L558.9,76.5 L563.4,81.0 L568.0,85.5 L572.5,90.1 L577.1,94.6 L581.6,99.1 L586.2,103.5 L590.7,107.8 L595.3,111.9 L599.8,115.9 L604.4,119.7 L608.9,123.3 L613.5,126.8 L618.0,130.0 L622.6,132.9 L627.1,135.7 L631.7,138.2 L636.2,140.5 L640.8,142.7 L645.3,144.5 L649.8,146.2 L654.4,147.8 L658.9,149.1 L663.5,150.3 L668.0,151.3 L672.6,152.2 L677.1,152.9 L681.7,153.5 L686.2,154.1 L690.8,154.5 L695.3,154.9 L699.9,155.2 L704.4,155.4 L709.0,155.6 L713.5,155.7 L718.1,155.8 L722.6,155.9 L727.2,155.9 L731.7,156.0 L736.3,156.0 L740.8,156.0 L745.4,156.0 L749.9,156.0 L754.4,156.0 L759.0,156.0 L763.5,156.0 L768.1,156.0 L772.6,155.9 L777.2,155.9 L781.7,155.9 L786.3,155.9 L790.8,155.9 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,155.9 L818.1,155.9 L822.7,155.9 L827.2,155.9 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,156.0 L158.7,156.0 L163.2,156.0 L167.8,156.0 L172.3,156.0 L176.9,156.0 L181.4,156.0 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.8 L208.7,155.8 L213.3,155.7 L217.8,155.6 L222.4,155.5 L226.9,155.4 L231.5,155.2 L236.0,155.0 L240.6,154.8 L245.1,154.6 L249.6,154.3 L254.2,153.9 L258.7,153.5 L263.3,153.0 L267.8,152.5 L272.4,151.9 L276.9,151.2 L281.5,150.4 L286.0,149.5 L290.6,148.4 L295.1,147.3 L299.7,146.1 L304.2,144.7 L308.8,143.2 L313.3,141.5 L317.9,139.7 L322.4,137.8 L327.0,135.7 L331.5,133.5 L336.1,131.1 L340.6,128.6 L345.2,126.0 L349.7,123.3 L354.2,120.4 L358.8,117.5 L363.3,114.5 L367.9,111.4 L372.4,108.3 L377.0,105.2 L381.5,102.1 L386.1,99.1 L390.6,96.1 L395.2,93.2 L399.7,90.5 L404.3,87.9 L408.8,85.5 L413.4,83.3 L417.9,81.3 L422.5,79.7 L427.0,78.3 L431.6,77.2 L436.1,76.4 L440.7,76.0 L445.2,75.9 L449.7,76.2 L454.3,76.9 L458.8,77.9 L463.4,79.2 L467.9,80.9 L472.5,82.8 L477.0,85.1 L481.6,87.7 L486.1,90.5 L490.7,93.5 L495.2,96.7 L499.8,100.1 L504.3,103.5 L508.9,107.1 L513.4,110.7 L518.0,114.3 L522.5,117.9 L527.1,121.4 L531.6,124.9 L536.2,128.2 L540.7,131.4 L545.3,134.4 L549.8,137.3 L554.3,140.0 L558.9,142.4 L563.4,144.6 L568.0,146.7 L572.5,148.5 L577.1,150.0 L581.6,151.4 L586.2,152.6 L590.7,153.5 L595.3,154.3 L599.8,154.9 L604.4,155.4 L608.9,155.7 L613.5,155.9 L618.0,156.0 L622.6,156.0 L627.1,155.9 L631.7,155.8 L636.2,155.6 L640.8,155.4 L645.3,155.1 L649.8,154.9 L654.4,154.6 L658.9,154.4 L663.5,154.2 L668.0,154.0 L672.6,153.8 L677.1,153.6 L681.7,153.5 L686.2,153.4 L690.8,153.3 L695.3,153.3 L699.9,153.3 L704.4,153.3 L709.0,153.3 L713.5,153.4 L718.1,153.4 L722.6,153.5 L727.2,153.6 L731.7,153.8 L736.3,153.9 L740.8,154.0 L745.4,154.1 L749.9,154.3 L754.4,154.4 L759.0,154.5 L763.5,154.7 L768.1,154.8 L772.6,154.9 L777.2,155.0 L781.7,155.1 L786.3,155.2 L790.8,155.3 L795.4,155.4 L799.9,155.4 L804.5,155.5 L809.0,155.6 L813.6,155.6 L818.1,155.7 L822.7,155.7 L827.2,155.8 L831.8,155.8 L836.3,155.8 L840.9,155.9 L845.4,155.9 L849.9,155.9 L854.5,155.9 L859.0,155.9 L863.6,155.9 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,155.9 L149.6,155.9 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.8 L172.3,155.8 L176.9,155.7 L181.4,155.7 L186.0,155.6 L190.5,155.5 L195.1,155.4 L199.6,155.3 L204.2,155.2 L208.7,155.0 L213.3,154.9 L217.8,154.7 L222.4,154.5 L226.9,154.2 L231.5,153.9 L236.0,153.6 L240.6,153.2 L245.1,152.8 L249.6,152.4 L254.2,151.9 L258.7,151.4 L263.3,150.8 L267.8,150.2 L272.4,149.5 L276.9,148.8 L281.5,148.0 L286.0,147.2 L290.6,146.3 L295.1,145.4 L299.7,144.5 L304.2,143.5 L308.8,142.5 L313.3,141.5 L317.9,140.4 L322.4,139.4 L327.0,138.4 L331.5,137.4 L336.1,136.4 L340.6,135.5 L345.2,134.7 L349.7,133.9 L354.2,133.2 L358.8,132.5 L363.3,132.0 L367.9,131.7 L372.4,131.4 L377.0,131.3 L381.5,131.3 L386.1,131.5 L390.6,131.8 L395.2,132.3 L399.7,132.9 L404.3,133.7 L408.8,134.6 L413.4,135.6 L417.9,136.8 L422.5,138.1 L427.0,139.4 L431.6,140.8 L436.1,142.3 L440.7,143.8 L445.2,145.3 L449.7,146.8 L454.3,148.2 L458.8,149.6 L463.4,150.9 L467.9,152.1 L472.5,153.2 L477.0,154.1 L481.6,154.8 L486.1,155.4 L490.7,155.8 L495.2,156.0 L499.8,156.0 L504.3,155.8 L508.9,155.4 L513.4,154.8 L518.0,154.1 L522.5,153.2 L527.1,152.1 L531.6,150.9 L536.2,149.6 L540.7,148.2 L545.3,146.8 L549.8,145.3 L554.3,143.8 L558.9,142.3 L563.4,140.8 L568.0,139.4 L572.5,138.1 L577.1,136.8 L581.6,135.6 L586.2,134.6 L590.7,133.7 L595.3,132.9 L599.8,132.3 L604.4,131.8 L608.9,131.5 L613.5,131.3 L618.0,131.3 L622.6,131.4 L627.1,131.7 L631.7,132.0 L636.2,132.5 L640.8,133.2 L645.3,133.9 L649.8,134.7 L654.4,135.5 L658.9,136.4 L663.5,137.4 L668.0,138.4 L672.6,139.4 L677.1,140.4 L681.7,141.5 L686.2,142.5 L690.8,143.5 L695.3,144.5 L699.9,145.4 L704.4,146.3 L709.0,147.2 L713.5,148.0 L718.1,148.8 L722.6,149.5 L727.2,150.2 L731.7,150.8 L736.3,151.4 L740.8,151.9 L745.4,152.4 L749.9,152.8 L754.4,153.2 L759.0,153.6 L763.5,153.9 L768.1,154.2 L772.6,154.5 L777.2,154.7 L781.7,154.9 L786.3,155.0 L790.8,155.2 L795.4,155.3 L799.9,155.4 L804.5,155.5 L809.0,155.6 L813.6,155.7 L818.1,155.7 L822.7,155.8 L827.2,155.8 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,155.9 L849.9,155.9 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,155.9 L136.0,155.9 L140.5,155.9 L145.1,155.9 L149.6,155.9 L154.1,155.9 L158.7,155.8 L163.2,155.8 L167.8,155.8 L172.3,155.7 L176.9,155.7 L181.4,155.6 L186.0,155.6 L190.5,155.5 L195.1,155.4 L199.6,155.4 L204.2,155.3 L208.7,155.2 L213.3,155.1 L217.8,155.0 L222.4,154.9 L226.9,154.8 L231.5,154.7 L236.0,154.5 L240.6,154.4 L245.1,154.3 L249.6,154.1 L254.2,154.0 L258.7,153.9 L263.3,153.8 L267.8,153.6 L272.4,153.5 L276.9,153.4 L281.5,153.4 L286.0,153.3 L290.6,153.3 L295.1,153.3 L299.7,153.3 L304.2,153.3 L308.8,153.4 L313.3,153.5 L317.9,153.6 L322.4,153.8 L327.0,154.0 L331.5,154.2 L336.1,154.4 L340.6,154.6 L345.2,154.9 L349.7,155.1 L354.2,155.4 L358.8,155.6 L363.3,155.8 L367.9,155.9 L372.4,156.0 L377.0,156.0 L381.5,155.9 L386.1,155.7 L390.6,155.4 L395.2,154.9 L399.7,154.3 L404.3,153.5 L408.8,152.6 L413.4,151.4 L417.9,150.0 L422.5,148.5 L427.0,146.7 L431.6,144.6 L436.1,142.4 L440.7,140.0 L445.2,137.3 L449.7,134.4 L454.3,131.4 L458.8,128.2 L463.4,124.9 L467.9,121.4 L472.5,117.9 L477.0,114.3 L481.6,110.7 L486.1,107.1 L490.7,103.5 L495.2,100.1 L499.8,96.7 L504.3,93.5 L508.9,90.5 L513.4,87.7 L518.0,85.1 L522.5,82.8 L527.1,80.9 L531.6,79.2 L536.2,77.9 L540.7,76.9 L545.3,76.2 L549.8,75.9 L554.3,76.0 L558.9,76.4 L563.4,77.2 L568.0,78.3 L572.5,79.7 L577.1,81.3 L581.6,83.3 L586.2,85.5 L590.7,87.9 L595.3,90.5 L599.8,93.2 L604.4,96.1 L608.9,99.1 L613.5,102.1 L618.0,105.2 L622.6,108.3 L627.1,111.4 L631.7,114.5 L636.2,117.5 L640.8,120.4 L645.3,123.3 L649.8,126.0 L654.4,128.6 L658.9,131.1 L663.5,133.5 L668.0,135.7 L672.6,137.8 L677.1,139.7 L681.7,141.5 L686.2,143.2 L690.8,144.7 L695.3,146.1 L699.9,147.3 L704.4,148.4 L709.0,149.5 L713.5,150.4 L718.1,151.2 L722.6,151.9 L727.2,152.5 L731.7,153.0 L736.3,153.5 L740.8,153.9 L745.4,154.3 L749.9,154.6 L754.4,154.8 L759.0,155.0 L763.5,155.2 L768.1,155.4 L772.6,155.5 L777.2,155.6 L781.7,155.7 L786.3,155.8 L790.8,155.8 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,156.0 L818.1,156.0 L822.7,156.0 L827.2,156.0 L831.8,156.0 L836.3,156.0 L840.9,156.0 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.9 L172.3,155.9 L176.9,155.9 L181.4,155.9 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.9 L208.7,155.9 L213.3,155.9 L217.8,155.9 L222.4,155.9 L226.9,156.0 L231.5,156.0 L236.0,156.0 L240.6,156.0 L245.1,156.0 L249.6,156.0 L254.2,156.0 L258.7,156.0 L263.3,156.0 L267.8,155.9 L272.4,155.9 L276.9,155.8 L281.5,155.7 L286.0,155.6 L290.6,155.4 L295.1,155.2 L299.7,154.9 L304.2,154.5 L308.8,154.1 L313.3,153.5 L317.9,152.9 L322.4,152.2 L327.0,151.3 L331.5,150.3 L336.1,149.1 L340.6,147.8 L345.2,146.2 L349.7,144.5 L354.2,142.7 L358.8,140.5 L363.3,138.2 L367.9,135.7 L372.4,132.9 L377.0,130.0 L381.5,126.8 L386.1,123.3 L390.6,119.7 L395.2,115.9 L399.7,111.9 L404.3,107.8 L408.8,103.5 L413.4,99.1 L417.9,94.6 L422.5,90.1 L427.0,85.5 L431.6,81.0 L436.1,76.5 L440.7,72.2 L445.2,67.9 L449.7,63.9 L454.3,60.0 L458.8,56.4 L463.4,53.1 L467.9,50.2 L472.5,47.6 L477.0,45.4 L481.6,43.6 L486.1,42.2 L490.7,41.3 L495.2,40.8 L499.8,40.8 L504.3,41.3 L508.9,42.2 L513.4,43.6 L518.0,45.4 L522.5,47.6 L527.1,50.2 L531.6,53.1 L536.2,56.4 L540.7,60.0 L545.3,63.9 L549.8,67.9 L554.3,72.2 L558.9,76.5 L563.4,81.0 L568.0,85.5 L572.5,90.1 L577.1,94.6 L581.6,99.1 L586.2,103.5 L590.7,107.8 L595.3,111.9 L599.8,115.9 L604.4,119.7 L608.9,123.3 L613.5,126.8 L618.0,130.0 L622.6,132.9 L627.1,135.7 L631.7,138.2 L636.2,140.5 L640.8,142.7 L645.3,144.5 L649.8,146.2 L654.4,147.8 L658.9,149.1 L663.5,150.3 L668.0,151.3 L672.6,152.2 L677.1,152.9 L681.7,153.5 L686.2,154.1 L690.8,154.5 L695.3,154.9 L699.9,155.2 L704.4,155.4 L709.0,155.6 L713.5,155.7 L718.1,155.8 L722.6,155.9 L727.2,155.9 L731.7,156.0 L736.3,156.0 L740.8,156.0 L745.4,156.0 L749.9,156.0 L754.4,156.0 L759.0,156.0 L763.5,156.0 L768.1,156.0 L772.6,155.9 L777.2,155.9 L781.7,155.9 L786.3,155.9 L790.8,155.9 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,155.9 L818.1,155.9 L822.7,155.9 L827.2,155.9 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0" dur="4.2s" repeatCount="indefinite"/>
-          </path>
-          <path d="M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.9 L172.3,155.9 L176.9,155.9 L181.4,155.9 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.9 L208.7,155.9 L213.3,155.9 L217.8,155.9 L222.4,155.9 L226.9,156.0 L231.5,156.0 L236.0,156.0 L240.6,156.0 L245.1,156.0 L249.6,156.0 L254.2,156.0 L258.7,156.0 L263.3,156.0 L267.8,155.9 L272.4,155.9 L276.9,155.8 L281.5,155.7 L286.0,155.6 L290.6,155.4 L295.1,155.2 L299.7,154.9 L304.2,154.5 L308.8,154.1 L313.3,153.5 L317.9,152.9 L322.4,152.2 L327.0,151.3 L331.5,150.3 L336.1,149.1 L340.6,147.8 L345.2,146.2 L349.7,144.5 L354.2,142.7 L358.8,140.5 L363.3,138.2 L367.9,135.7 L372.4,132.9 L377.0,130.0 L381.5,126.8 L386.1,123.3 L390.6,119.7 L395.2,115.9 L399.7,111.9 L404.3,107.8 L408.8,103.5 L413.4,99.1 L417.9,94.6 L422.5,90.1 L427.0,85.5 L431.6,81.0 L436.1,76.5 L440.7,72.2 L445.2,67.9 L449.7,63.9 L454.3,60.0 L458.8,56.4 L463.4,53.1 L467.9,50.2 L472.5,47.6 L477.0,45.4 L481.6,43.6 L486.1,42.2 L490.7,41.3 L495.2,40.8 L499.8,40.8 L504.3,41.3 L508.9,42.2 L513.4,43.6 L518.0,45.4 L522.5,47.6 L527.1,50.2 L531.6,53.1 L536.2,56.4 L540.7,60.0 L545.3,63.9 L549.8,67.9 L554.3,72.2 L558.9,76.5 L563.4,81.0 L568.0,85.5 L572.5,90.1 L577.1,94.6 L581.6,99.1 L586.2,103.5 L590.7,107.8 L595.3,111.9 L599.8,115.9 L604.4,119.7 L608.9,123.3 L613.5,126.8 L618.0,130.0 L622.6,132.9 L627.1,135.7 L631.7,138.2 L636.2,140.5 L640.8,142.7 L645.3,144.5 L649.8,146.2 L654.4,147.8 L658.9,149.1 L663.5,150.3 L668.0,151.3 L672.6,152.2 L677.1,152.9 L681.7,153.5 L686.2,154.1 L690.8,154.5 L695.3,154.9 L699.9,155.2 L704.4,155.4 L709.0,155.6 L713.5,155.7 L718.1,155.8 L722.6,155.9 L727.2,155.9 L731.7,156.0 L736.3,156.0 L740.8,156.0 L745.4,156.0 L749.9,156.0 L754.4,156.0 L759.0,156.0 L763.5,156.0 L768.1,156.0 L772.6,155.9 L777.2,155.9 L781.7,155.9 L786.3,155.9 L790.8,155.9 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,155.9 L818.1,155.9 L822.7,155.9 L827.2,155.9 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0" fill="none" stroke="rgba(255,107,107,0.85)" stroke-width="2.2" stroke-linejoin="round">
-            <animate attributeName="d" values="M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.9 L172.3,155.9 L176.9,155.9 L181.4,155.9 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.9 L208.7,155.9 L213.3,155.9 L217.8,155.9 L222.4,155.9 L226.9,156.0 L231.5,156.0 L236.0,156.0 L240.6,156.0 L245.1,156.0 L249.6,156.0 L254.2,156.0 L258.7,156.0 L263.3,156.0 L267.8,155.9 L272.4,155.9 L276.9,155.8 L281.5,155.7 L286.0,155.6 L290.6,155.4 L295.1,155.2 L299.7,154.9 L304.2,154.5 L308.8,154.1 L313.3,153.5 L317.9,152.9 L322.4,152.2 L327.0,151.3 L331.5,150.3 L336.1,149.1 L340.6,147.8 L345.2,146.2 L349.7,144.5 L354.2,142.7 L358.8,140.5 L363.3,138.2 L367.9,135.7 L372.4,132.9 L377.0,130.0 L381.5,126.8 L386.1,123.3 L390.6,119.7 L395.2,115.9 L399.7,111.9 L404.3,107.8 L408.8,103.5 L413.4,99.1 L417.9,94.6 L422.5,90.1 L427.0,85.5 L431.6,81.0 L436.1,76.5 L440.7,72.2 L445.2,67.9 L449.7,63.9 L454.3,60.0 L458.8,56.4 L463.4,53.1 L467.9,50.2 L472.5,47.6 L477.0,45.4 L481.6,43.6 L486.1,42.2 L490.7,41.3 L495.2,40.8 L499.8,40.8 L504.3,41.3 L508.9,42.2 L513.4,43.6 L518.0,45.4 L522.5,47.6 L527.1,50.2 L531.6,53.1 L536.2,56.4 L540.7,60.0 L545.3,63.9 L549.8,67.9 L554.3,72.2 L558.9,76.5 L563.4,81.0 L568.0,85.5 L572.5,90.1 L577.1,94.6 L581.6,99.1 L586.2,103.5 L590.7,107.8 L595.3,111.9 L599.8,115.9 L604.4,119.7 L608.9,123.3 L613.5,126.8 L618.0,130.0 L622.6,132.9 L627.1,135.7 L631.7,138.2 L636.2,140.5 L640.8,142.7 L645.3,144.5 L649.8,146.2 L654.4,147.8 L658.9,149.1 L663.5,150.3 L668.0,151.3 L672.6,152.2 L677.1,152.9 L681.7,153.5 L686.2,154.1 L690.8,154.5 L695.3,154.9 L699.9,155.2 L704.4,155.4 L709.0,155.6 L713.5,155.7 L718.1,155.8 L722.6,155.9 L727.2,155.9 L731.7,156.0 L736.3,156.0 L740.8,156.0 L745.4,156.0 L749.9,156.0 L754.4,156.0 L759.0,156.0 L763.5,156.0 L768.1,156.0 L772.6,155.9 L777.2,155.9 L781.7,155.9 L786.3,155.9 L790.8,155.9 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,155.9 L818.1,155.9 L822.7,155.9 L827.2,155.9 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,156.0 L158.7,156.0 L163.2,156.0 L167.8,156.0 L172.3,156.0 L176.9,156.0 L181.4,156.0 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.8 L208.7,155.8 L213.3,155.7 L217.8,155.6 L222.4,155.5 L226.9,155.4 L231.5,155.2 L236.0,155.0 L240.6,154.8 L245.1,154.6 L249.6,154.3 L254.2,153.9 L258.7,153.5 L263.3,153.0 L267.8,152.5 L272.4,151.9 L276.9,151.2 L281.5,150.4 L286.0,149.5 L290.6,148.4 L295.1,147.3 L299.7,146.1 L304.2,144.7 L308.8,143.2 L313.3,141.5 L317.9,139.7 L322.4,137.8 L327.0,135.7 L331.5,133.5 L336.1,131.1 L340.6,128.6 L345.2,126.0 L349.7,123.3 L354.2,120.4 L358.8,117.5 L363.3,114.5 L367.9,111.4 L372.4,108.3 L377.0,105.2 L381.5,102.1 L386.1,99.1 L390.6,96.1 L395.2,93.2 L399.7,90.5 L404.3,87.9 L408.8,85.5 L413.4,83.3 L417.9,81.3 L422.5,79.7 L427.0,78.3 L431.6,77.2 L436.1,76.4 L440.7,76.0 L445.2,75.9 L449.7,76.2 L454.3,76.9 L458.8,77.9 L463.4,79.2 L467.9,80.9 L472.5,82.8 L477.0,85.1 L481.6,87.7 L486.1,90.5 L490.7,93.5 L495.2,96.7 L499.8,100.1 L504.3,103.5 L508.9,107.1 L513.4,110.7 L518.0,114.3 L522.5,117.9 L527.1,121.4 L531.6,124.9 L536.2,128.2 L540.7,131.4 L545.3,134.4 L549.8,137.3 L554.3,140.0 L558.9,142.4 L563.4,144.6 L568.0,146.7 L572.5,148.5 L577.1,150.0 L581.6,151.4 L586.2,152.6 L590.7,153.5 L595.3,154.3 L599.8,154.9 L604.4,155.4 L608.9,155.7 L613.5,155.9 L618.0,156.0 L622.6,156.0 L627.1,155.9 L631.7,155.8 L636.2,155.6 L640.8,155.4 L645.3,155.1 L649.8,154.9 L654.4,154.6 L658.9,154.4 L663.5,154.2 L668.0,154.0 L672.6,153.8 L677.1,153.6 L681.7,153.5 L686.2,153.4 L690.8,153.3 L695.3,153.3 L699.9,153.3 L704.4,153.3 L709.0,153.3 L713.5,153.4 L718.1,153.4 L722.6,153.5 L727.2,153.6 L731.7,153.8 L736.3,153.9 L740.8,154.0 L745.4,154.1 L749.9,154.3 L754.4,154.4 L759.0,154.5 L763.5,154.7 L768.1,154.8 L772.6,154.9 L777.2,155.0 L781.7,155.1 L786.3,155.2 L790.8,155.3 L795.4,155.4 L799.9,155.4 L804.5,155.5 L809.0,155.6 L813.6,155.6 L818.1,155.7 L822.7,155.7 L827.2,155.8 L831.8,155.8 L836.3,155.8 L840.9,155.9 L845.4,155.9 L849.9,155.9 L854.5,155.9 L859.0,155.9 L863.6,155.9 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,155.9 L149.6,155.9 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.8 L172.3,155.8 L176.9,155.7 L181.4,155.7 L186.0,155.6 L190.5,155.5 L195.1,155.4 L199.6,155.3 L204.2,155.2 L208.7,155.0 L213.3,154.9 L217.8,154.7 L222.4,154.5 L226.9,154.2 L231.5,153.9 L236.0,153.6 L240.6,153.2 L245.1,152.8 L249.6,152.4 L254.2,151.9 L258.7,151.4 L263.3,150.8 L267.8,150.2 L272.4,149.5 L276.9,148.8 L281.5,148.0 L286.0,147.2 L290.6,146.3 L295.1,145.4 L299.7,144.5 L304.2,143.5 L308.8,142.5 L313.3,141.5 L317.9,140.4 L322.4,139.4 L327.0,138.4 L331.5,137.4 L336.1,136.4 L340.6,135.5 L345.2,134.7 L349.7,133.9 L354.2,133.2 L358.8,132.5 L363.3,132.0 L367.9,131.7 L372.4,131.4 L377.0,131.3 L381.5,131.3 L386.1,131.5 L390.6,131.8 L395.2,132.3 L399.7,132.9 L404.3,133.7 L408.8,134.6 L413.4,135.6 L417.9,136.8 L422.5,138.1 L427.0,139.4 L431.6,140.8 L436.1,142.3 L440.7,143.8 L445.2,145.3 L449.7,146.8 L454.3,148.2 L458.8,149.6 L463.4,150.9 L467.9,152.1 L472.5,153.2 L477.0,154.1 L481.6,154.8 L486.1,155.4 L490.7,155.8 L495.2,156.0 L499.8,156.0 L504.3,155.8 L508.9,155.4 L513.4,154.8 L518.0,154.1 L522.5,153.2 L527.1,152.1 L531.6,150.9 L536.2,149.6 L540.7,148.2 L545.3,146.8 L549.8,145.3 L554.3,143.8 L558.9,142.3 L563.4,140.8 L568.0,139.4 L572.5,138.1 L577.1,136.8 L581.6,135.6 L586.2,134.6 L590.7,133.7 L595.3,132.9 L599.8,132.3 L604.4,131.8 L608.9,131.5 L613.5,131.3 L618.0,131.3 L622.6,131.4 L627.1,131.7 L631.7,132.0 L636.2,132.5 L640.8,133.2 L645.3,133.9 L649.8,134.7 L654.4,135.5 L658.9,136.4 L663.5,137.4 L668.0,138.4 L672.6,139.4 L677.1,140.4 L681.7,141.5 L686.2,142.5 L690.8,143.5 L695.3,144.5 L699.9,145.4 L704.4,146.3 L709.0,147.2 L713.5,148.0 L718.1,148.8 L722.6,149.5 L727.2,150.2 L731.7,150.8 L736.3,151.4 L740.8,151.9 L745.4,152.4 L749.9,152.8 L754.4,153.2 L759.0,153.6 L763.5,153.9 L768.1,154.2 L772.6,154.5 L777.2,154.7 L781.7,154.9 L786.3,155.0 L790.8,155.2 L795.4,155.3 L799.9,155.4 L804.5,155.5 L809.0,155.6 L813.6,155.7 L818.1,155.7 L822.7,155.8 L827.2,155.8 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,155.9 L849.9,155.9 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,155.9 L136.0,155.9 L140.5,155.9 L145.1,155.9 L149.6,155.9 L154.1,155.9 L158.7,155.8 L163.2,155.8 L167.8,155.8 L172.3,155.7 L176.9,155.7 L181.4,155.6 L186.0,155.6 L190.5,155.5 L195.1,155.4 L199.6,155.4 L204.2,155.3 L208.7,155.2 L213.3,155.1 L217.8,155.0 L222.4,154.9 L226.9,154.8 L231.5,154.7 L236.0,154.5 L240.6,154.4 L245.1,154.3 L249.6,154.1 L254.2,154.0 L258.7,153.9 L263.3,153.8 L267.8,153.6 L272.4,153.5 L276.9,153.4 L281.5,153.4 L286.0,153.3 L290.6,153.3 L295.1,153.3 L299.7,153.3 L304.2,153.3 L308.8,153.4 L313.3,153.5 L317.9,153.6 L322.4,153.8 L327.0,154.0 L331.5,154.2 L336.1,154.4 L340.6,154.6 L345.2,154.9 L349.7,155.1 L354.2,155.4 L358.8,155.6 L363.3,155.8 L367.9,155.9 L372.4,156.0 L377.0,156.0 L381.5,155.9 L386.1,155.7 L390.6,155.4 L395.2,154.9 L399.7,154.3 L404.3,153.5 L408.8,152.6 L413.4,151.4 L417.9,150.0 L422.5,148.5 L427.0,146.7 L431.6,144.6 L436.1,142.4 L440.7,140.0 L445.2,137.3 L449.7,134.4 L454.3,131.4 L458.8,128.2 L463.4,124.9 L467.9,121.4 L472.5,117.9 L477.0,114.3 L481.6,110.7 L486.1,107.1 L490.7,103.5 L495.2,100.1 L499.8,96.7 L504.3,93.5 L508.9,90.5 L513.4,87.7 L518.0,85.1 L522.5,82.8 L527.1,80.9 L531.6,79.2 L536.2,77.9 L540.7,76.9 L545.3,76.2 L549.8,75.9 L554.3,76.0 L558.9,76.4 L563.4,77.2 L568.0,78.3 L572.5,79.7 L577.1,81.3 L581.6,83.3 L586.2,85.5 L590.7,87.9 L595.3,90.5 L599.8,93.2 L604.4,96.1 L608.9,99.1 L613.5,102.1 L618.0,105.2 L622.6,108.3 L627.1,111.4 L631.7,114.5 L636.2,117.5 L640.8,120.4 L645.3,123.3 L649.8,126.0 L654.4,128.6 L658.9,131.1 L663.5,133.5 L668.0,135.7 L672.6,137.8 L677.1,139.7 L681.7,141.5 L686.2,143.2 L690.8,144.7 L695.3,146.1 L699.9,147.3 L704.4,148.4 L709.0,149.5 L713.5,150.4 L718.1,151.2 L722.6,151.9 L727.2,152.5 L731.7,153.0 L736.3,153.5 L740.8,153.9 L745.4,154.3 L749.9,154.6 L754.4,154.8 L759.0,155.0 L763.5,155.2 L768.1,155.4 L772.6,155.5 L777.2,155.6 L781.7,155.7 L786.3,155.8 L790.8,155.8 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,156.0 L818.1,156.0 L822.7,156.0 L827.2,156.0 L831.8,156.0 L836.3,156.0 L840.9,156.0 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0;M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,155.9 L158.7,155.9 L163.2,155.9 L167.8,155.9 L172.3,155.9 L176.9,155.9 L181.4,155.9 L186.0,155.9 L190.5,155.9 L195.1,155.9 L199.6,155.9 L204.2,155.9 L208.7,155.9 L213.3,155.9 L217.8,155.9 L222.4,155.9 L226.9,156.0 L231.5,156.0 L236.0,156.0 L240.6,156.0 L245.1,156.0 L249.6,156.0 L254.2,156.0 L258.7,156.0 L263.3,156.0 L267.8,155.9 L272.4,155.9 L276.9,155.8 L281.5,155.7 L286.0,155.6 L290.6,155.4 L295.1,155.2 L299.7,154.9 L304.2,154.5 L308.8,154.1 L313.3,153.5 L317.9,152.9 L322.4,152.2 L327.0,151.3 L331.5,150.3 L336.1,149.1 L340.6,147.8 L345.2,146.2 L349.7,144.5 L354.2,142.7 L358.8,140.5 L363.3,138.2 L367.9,135.7 L372.4,132.9 L377.0,130.0 L381.5,126.8 L386.1,123.3 L390.6,119.7 L395.2,115.9 L399.7,111.9 L404.3,107.8 L408.8,103.5 L413.4,99.1 L417.9,94.6 L422.5,90.1 L427.0,85.5 L431.6,81.0 L436.1,76.5 L440.7,72.2 L445.2,67.9 L449.7,63.9 L454.3,60.0 L458.8,56.4 L463.4,53.1 L467.9,50.2 L472.5,47.6 L477.0,45.4 L481.6,43.6 L486.1,42.2 L490.7,41.3 L495.2,40.8 L499.8,40.8 L504.3,41.3 L508.9,42.2 L513.4,43.6 L518.0,45.4 L522.5,47.6 L527.1,50.2 L531.6,53.1 L536.2,56.4 L540.7,60.0 L545.3,63.9 L549.8,67.9 L554.3,72.2 L558.9,76.5 L563.4,81.0 L568.0,85.5 L572.5,90.1 L577.1,94.6 L581.6,99.1 L586.2,103.5 L590.7,107.8 L595.3,111.9 L599.8,115.9 L604.4,119.7 L608.9,123.3 L613.5,126.8 L618.0,130.0 L622.6,132.9 L627.1,135.7 L631.7,138.2 L636.2,140.5 L640.8,142.7 L645.3,144.5 L649.8,146.2 L654.4,147.8 L658.9,149.1 L663.5,150.3 L668.0,151.3 L672.6,152.2 L677.1,152.9 L681.7,153.5 L686.2,154.1 L690.8,154.5 L695.3,154.9 L699.9,155.2 L704.4,155.4 L709.0,155.6 L713.5,155.7 L718.1,155.8 L722.6,155.9 L727.2,155.9 L731.7,156.0 L736.3,156.0 L740.8,156.0 L745.4,156.0 L749.9,156.0 L754.4,156.0 L759.0,156.0 L763.5,156.0 L768.1,156.0 L772.6,155.9 L777.2,155.9 L781.7,155.9 L786.3,155.9 L790.8,155.9 L795.4,155.9 L799.9,155.9 L804.5,155.9 L809.0,155.9 L813.6,155.9 L818.1,155.9 L822.7,155.9 L827.2,155.9 L831.8,155.9 L836.3,155.9 L840.9,155.9 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0" dur="4.2s" repeatCount="indefinite"/>
-          </path>
-          <path d="M45.0,156.0 L49.5,156.0 L54.1,156.0 L58.6,156.0 L63.2,156.0 L67.7,156.0 L72.3,156.0 L76.8,156.0 L81.4,156.0 L85.9,156.0 L90.5,156.0 L95.0,156.0 L99.6,156.0 L104.1,156.0 L108.7,156.0 L113.2,156.0 L117.8,156.0 L122.3,156.0 L126.9,156.0 L131.4,156.0 L136.0,156.0 L140.5,156.0 L145.1,156.0 L149.6,156.0 L154.1,156.0 L158.7,156.0 L163.2,156.0 L167.8,156.0 L172.3,156.0 L176.9,156.0 L181.4,156.0 L186.0,156.0 L190.5,156.0 L195.1,156.0 L199.6,156.0 L204.2,156.0 L208.7,156.0 L213.3,156.0 L217.8,156.0 L222.4,156.0 L226.9,156.0 L231.5,156.0 L236.0,156.0 L240.6,156.0 L245.1,156.0 L249.6,156.0 L254.2,156.0 L258.7,156.0 L263.3,156.0 L267.8,156.0 L272.4,156.0 L276.9,156.0 L281.5,156.0 L286.0,156.0 L290.6,156.0 L295.1,156.0 L299.7,156.0 L304.2,156.0 L308.8,156.0 L313.3,156.0 L317.9,156.0 L322.4,156.0 L327.0,156.0 L331.5,156.0 L336.1,156.0 L340.6,156.0 L345.2,156.0 L349.7,156.0 L354.2,156.0 L358.8,156.0 L363.3,156.0 L367.9,156.0 L372.4,156.0 L377.0,155.9 L381.5,155.9 L386.1,155.8 L390.6,155.7 L395.2,155.5 L399.7,155.3 L404.3,154.8 L408.8,154.2 L413.4,153.2 L417.9,151.9 L422.5,150.1 L427.0,147.6 L431.6,144.3 L436.1,140.2 L440.7,135.0 L445.2,128.7 L449.7,121.3 L454.3,112.9 L458.8,103.5 L463.4,93.6 L467.9,83.3 L472.5,73.1 L477.0,63.6 L481.6,55.1 L486.1,48.3 L490.7,43.5 L495.2,41.1 L499.8,41.1 L504.3,43.5 L508.9,48.3 L513.4,55.1 L518.0,63.6 L522.5,73.1 L527.1,83.3 L531.6,93.6 L536.2,103.5 L540.7,112.9 L545.3,121.3 L549.8,128.7 L554.3,135.0 L558.9,140.2 L563.4,144.3 L568.0,147.6 L572.5,150.1 L577.1,151.9 L581.6,153.2 L586.2,154.2 L590.7,154.8 L595.3,155.3 L599.8,155.5 L604.4,155.7 L608.9,155.8 L613.5,155.9 L618.0,155.9 L622.6,156.0 L627.1,156.0 L631.7,156.0 L636.2,156.0 L640.8,156.0 L645.3,156.0 L649.8,156.0 L654.4,156.0 L658.9,156.0 L663.5,156.0 L668.0,156.0 L672.6,156.0 L677.1,156.0 L681.7,156.0 L686.2,156.0 L690.8,156.0 L695.3,156.0 L699.9,156.0 L704.4,156.0 L709.0,156.0 L713.5,156.0 L718.1,156.0 L722.6,156.0 L727.2,156.0 L731.7,156.0 L736.3,156.0 L740.8,156.0 L745.4,156.0 L749.9,156.0 L754.4,156.0 L759.0,156.0 L763.5,156.0 L768.1,156.0 L772.6,156.0 L777.2,156.0 L781.7,156.0 L786.3,156.0 L790.8,156.0 L795.4,156.0 L799.9,156.0 L804.5,156.0 L809.0,156.0 L813.6,156.0 L818.1,156.0 L822.7,156.0 L827.2,156.0 L831.8,156.0 L836.3,156.0 L840.9,156.0 L845.4,156.0 L849.9,156.0 L854.5,156.0 L859.0,156.0 L863.6,156.0 L868.1,156.0 L872.7,156.0 L877.2,156.0 L881.8,156.0 L886.3,156.0 L890.9,156.0 L895.4,156.0 L900.0,156.0 L904.5,156.0 L909.1,156.0 L913.6,156.0 L918.2,156.0 L922.7,156.0 L927.3,156.0 L931.8,156.0 L936.4,156.0 L940.9,156.0 L945.5,156.0 L950.0,156.0" fill="none" stroke="rgba(78,168,255,0.9)" stroke-width="2.5" stroke-linejoin="round"/>
-          <rect x="45" y="7" width="11" height="4" fill="rgba(78,168,255,0.85)"/>
-          <text x="60" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">|&psi;|&sup2; H&#770; &#8212; &#1506;&#1493;&#1512; (skóra)</text>
-          <rect x="230" y="7" width="11" height="4" fill="rgba(255,107,107,0.85)"/>
-          <text x="245" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">|&psi;|&sup2; H&#770;+&lambda;G&#770; &#8212; &#1488;&#1493;&#1512; (światło)</text>
-          <rect x="450" y="7" width="11" height="4" fill="rgba(196,127,255,0.5)"/>
-          <text x="465" y="12" fill="#6a80a8" font-family="monospace" font-size="9.5">przestrzeń Edenu</text>
-        </svg>
+      <!-- P2 Wave SOFAR -->
+      <div class="iw-panel" id="p2">
+        <svg id="g2" class="iw-svg" height="320"></svg>
+        <div class="iw-ctrl">
+          <div class="iw-c"><span class="iw-cl">Gradient ΔT</span>
+            <input type="range" id="r2T" min="0" max="100" value="40">
+            <span class="iw-cv" id="d2T">40</span></div>
+          <div class="iw-c"><span class="iw-cl">Tłumienie α</span>
+            <input type="range" id="r2a" min="0" max="80" value="20">
+            <span class="iw-cv" id="d2a">20</span></div>
+          <div class="iw-c"><span class="iw-cl">Częstość ω</span>
+            <input type="range" id="r2w" min="1" max="20" value="5">
+            <span class="iw-cv" id="d2w">5</span></div>
+        </div>
+        <div class="iw-desc">Propagacja fali w gradiencie ośrodka — model SOFAR. Gdy ΔT=0, fala rozprasza się izotropowo. Gradient chwyta falę w warstwie propagacyjnej.</div>
       </div>
 
-    </div>
-  </div>
-</div>
+      <!-- P3 Quantum spectrum -->
+      <div class="iw-panel" id="p3">
+        <svg id="g3" class="iw-svg" height="340"></svg>
+        <div class="iw-ctrl">
+          <div class="iw-c"><span class="iw-cl">Pierwiastek Z</span>
+            <input type="range" id="r3Z" min="1" max="8" value="1">
+            <span class="iw-cv" id="d3Z">H (Z=1)</span></div>
+          <div class="iw-c"><span class="iw-cl">Poziom n_max</span>
+            <input type="range" id="r3n" min="3" max="8" value="5">
+            <span class="iw-cv" id="d3n">n = 5</span></div>
+          <div class="iw-c"><span class="iw-cl">Seria emisji</span>
+            <input type="range" id="r3s" min="1" max="4" value="2">
+            <span class="iw-cv" id="d3s">Balmera</span></div>
+        </div>
+        <div class="iw-desc">Widmo emisyjne pierwiastków — zapis gradientów energetycznych między poziomami kwantowymi. Każda linia to skok elektronu. Tożsamość pierwiastka wyraża się przez gradienty, nie przez masę.</div>
+      </div>
+
+      <!-- P4 Shannon entropy -->
+      <div class="iw-panel" id="p4">
+        <svg id="g4" class="iw-svg" height="320"></svg>
+        <div class="iw-ctrl">
+          <div class="iw-c"><span class="iw-cl">Wiarygodność p</span>
+            <input type="range" id="r4p" min="1" max="99" value="70">
+            <span class="iw-cv" id="d4p">70 %</span></div>
+          <div class="iw-c"><span class="iw-cl">Szum σ [%]</span>
+            <input type="range" id="r4s" min="0" max="100" value="20">
+            <span class="iw-cv" id="d4s">20 %</span></div>
+          <div class="iw-c"><span class="iw-cl">Temperatura T [K]</span>
+            <input type="range" id="r4T" min="100" max="1000" value="300">
+            <span class="iw-cv" id="d4T">300 K</span></div>
+        </div>
+        <div class="iw-desc">Entropia informacyjna Shannona H(p) i koszt fizyczny Landauera E=kT·ln2 na bit. Szum podnosi H — każdy bit wymaga więcej energii fizycznej.</div>
+      </div>
+
+      <!-- P5 Temperature scale -->
+      <div class="iw-panel" id="p5">
+        <svg id="g5" class="iw-svg" height="460"></svg>
+        <div class="iw-desc">Logarytmiczna skala temperatur — od 0,001 K do 15 milionów K. Oś obejmuje 10 rzędów wielkości. Każdy punkt to znaczący próg fizyczny lub astronomiczny.</div>
+      </div>
+
+    </div><!-- /iw-stack -->
+  </div><!-- /viz -->
 
 
-<section id="eden" class="reveal">
-  <div class="section-label">04 &mdash; Kosmologia</div>
-  <h2>Eden jako przestrze&#324; maksymalnej superpozycji</h2>
-  <p>Stan opisywany przez czysty gradient dodatni (&lambda;&rarr;&infin;, H&#770;&rarr;0) odpowiada <strong>przestrzeni przed emergencj&#261; czasu i materii</strong>. W tradycji abrahimicznej: Eden, Ain Sof, niesko&#324;czony potencja&#322; Wed&oacute;w.</p>
-  <blockquote>
-    &bdquo;Na pocz&#261;tku B&oacute;g stworzy&#322; niebo i ziemi&#281;. Ziemia za&#347; by&#322;a <em>tohu wa-bohu</em> &mdash; bez&#322;adem i pustkowiem...&rdquo;
-    <cite>&mdash; Rdz 1:1-2 &nbsp;|&nbsp; Precyzyjny opis stanu maksymalnej superpozycji</cite>
-  </blockquote>
-  <p><em>Tohu wa-bohu</em> to nie opis negatywny &mdash; to precyzyjny opis stanu, w kt&oacute;rym &#380;adna konfiguracja nie jest jeszcze utrwalona. <strong>Stworzenie jest pomiarem</strong> &mdash; operacj&#261; projekcji na baz&#281; stan&oacute;w w&#322;asnych H&#770;.</p>
-  <div class="eq-block">
-    <span class="eq-formula">\(|\Omega\rangle = \textstyle\sum_i c_i\,|\psi_i\rangle,\quad |c_i|^2 = \mathrm{const}\)</span>
-    <span class="eq-label">(4.1) &mdash; stan Edenu: r&oacute;wna superpozycja wszystkich historii</span>
-  </div>
-  <div class="eq-block">
-    <span class="eq-formula">\(\text{Stworzenie} \;\equiv\; \hat{P}_k\,|\Omega\rangle = |\psi_k\rangle\)</span>
-    <span class="eq-label">(4.2) &mdash; projekcja na konkret&#261; histori&#281; Wszech&#347;wiata</span>
-  </div>
-</section>
+<section class="essay-section" id="s8">
+    <div class="section-marker"><span class="section-marker-num">§ 08</span><div class="section-marker-line"></div></div>
+    <h2>Coda: <em>gradient, który patrzy na siebie</em></h2>
+    <p>Materia, która z definicji statystycznej przebywa najczęściej w stanach o wysokim $\Omega$, potrafiła na pewien czas — przez 3,8 miliarda lat na tej jednej planecie — organizować się w struktury zdolne do refleksji nad własnym miejscem w tym procesie. To jest osobliwość, której żadna inna znana nam struktura dysypatywna nie osiągnęła.</p>
+    <p>YHWH jako „będę, który będę" — i Boltzmann jako $S = k_B \ln \Omega$ — opisują tę samą rzeczywistość z dwóch stron tej samej granicy. Jeden mówi językiem objawienia, drugi językiem równań. Oba mówią: rzeczywistość jest procesem, nie bytem. Tożsamość jest gradientem, nie substancją.</p>
+    <div class="pq"><p>Świadomość jest gradientem, który patrzy na siebie. I właśnie to czyni historię życia tak osobliwą w kosmicznej skali — nie rozmiar, lecz zdolność do refleksji nad własnym miejscem w rozładowywaniu pierwotnej asymetrii Wielkiego Wybuchu.</p></div>
+  </section>
 
-<div class="divider"></div>
+</main>
 
-<section id="hipotezy" class="reveal">
-  <div class="section-label">05 &mdash; Hipotezy</div>
-  <h2>Trzy odwa&#380;ne twierdzenia</h2>
-  <p>Formu&#322;ujemy trzy hipotezy wymagaj&#261;ce dalszego badania &mdash; jako Diracowe postulaty TERJ:</p>
-  <div class="hypo-grid">
-    <div class="hypo-card reveal">
-      <div class="hypo-num">H1</div>
-      <div class="hypo-label">Projekcja Stworzenia</div>
-      <p>Rzeczywisto&#347;&#263; fizyczna jest wynikiem projekcji z przestrzeni niesko&#324;czonej potencjalno&#347;ci (G&#770;) na przestrze&#324; zdeterminowan&#261; przez prawa fizyki (H&#770;). <strong>Prawa fizyki s&#261; parametrami tej projekcji.</strong></p>
-    </div>
-    <div class="hypo-card reveal">
-      <div class="hypo-num">H2</div>
-      <div class="hypo-label">&#346;wiadomo&#347;&#263; jako rezydualne G&#770;</div>
-      <p>&#346;wiadomo&#347;&#263; jest lokalnym obszarem, w kt&oacute;rym projekcja nie jest kompletna &mdash; gdzie <strong>pewna miara gradientu dodatniego przetrwa&#322;a</strong> jako zdolno&#347;&#263; do tw&oacute;rczo&#347;ci, intencji i wolno&#347;ci.</p>
-    </div>
-    <div class="hypo-card reveal" style="border-color:rgba(196,127,255,0.28)">
-      <div class="hypo-num">H3</div>
-      <div class="hypo-label">Szabat &mdash; wektory&#347;&#263; Ayin &rarr; Alef</div>
-      <p>Szabat nie jest zawieszeniem aktywno&#347;ci &mdash; jest <strong>operacj&#261; zmian wektora percepcji</strong>: skierowaniem Ayin (&#1506; &mdash; oko, percepcja, ruch) ku Alef (&#1488; &mdash; milczenie, oddech przed s&#322;owem, przestrze&#324; bez formy). W j&#281;zyku TERJ: to zatrzymanie mechanizmu podtrzymuj&#261;cego gradient ujemny w obr&#281;bie woli cz&#322;owieka.</p>
-      <p style="margin-top:.7rem;font-size:.88rem;color:#6a80a0;font-style:italic">W przestrzeni Alef gradient ujemny przestaje dzia&#322;a&#263; &mdash; wola nie jest ju&#380; uk&#322;adem d&#261;&#380;&#261;cym do minimum. Staje si&#281; <strong>ma&#322;ym Edenem</strong>: lokaln&#261; kieszeni&#261; gradientu dodatniego wewn&#261;trz struktury &#347;wiata materialnego.</p>
-    </div>
-  </div>
-</section>
+<footer class="foot">
+  <div>© 2026 · Esej naukowy · CC BY-NC-ND 4.0 · Niekomercyjne cytowanie z podaniem autora dozwolone</div>
+  <div>Źródła: Boltzmann 1877 · Prigogine 1977 · Heisenberg 1927 · Shannon 1948 · Landauer 1961 · Penrose 2004</div>
+</footer>
 
-<section id="ayin-alef" class="reveal">
-  <div class="section-label">05b &mdash; Semantyka szabatu</div>
-  <h2>Ayin &#1506; &#8594; Alef &#1488; &mdash; operacja wektora percepcji</h2>
-
-  <p>W tradycji hebrajskiej ka&#380;da litera jest jednocze&#347;nie <strong>znakiem, liczb&#261; i operatorem semantycznym</strong>. Ayin (&#1506;, warto&#347;&#263; 70) oznacza oko, &#378;r&oacute;d&#322;o, percepcj&#281;, aktywny ruch ku obiektowi. Jest liter&#261; uk&#322;adu, kt&oacute;ry <em>widzi</em> &#347;wiat i organizuje go pod gradientem ujemnym: rozr&oacute;&#380;nia, klasyfikuje, zmierza ku formie.</p>
-
-  <p>Alef (&#1488;, warto&#347;&#263; 1) jest liter&#261; milcz&#261;c&#261; &mdash; jedyn&#261; w alfabecie hebrajskim, kt&oacute;ra nie wydaje sama&#322;a w&#322;asnego d&#378;wi&#281;ku. Jest oddechem <em>przed s&#322;owem</em>, przestrzeni&#261; <em>przed form&#261;</em>, operatorem bez w&#322;asnej tre&#347;ci. W mistyce &#380;ydowskiej Alef jest glifem Ain Sof &mdash; niesko&#324;czonej przestrzeni, w kt&oacute;rej gradient ujemny jeszcze nie dzia&#322;a.</p>
-
-  <div class="eq-block" style="border-left-color:var(--accent2)">
-    <span class="eq-formula" style="color:var(--accent2)">&#1506; &xrarr; &#1488; &nbsp;\(\equiv\)\; \(\hat{P}_{\text{percepcja}} \xrightarrow{\quad} \hat{G}_{\text{potencjalności}}\)</span>
-    <span class="eq-label">(5b.1) &mdash; skierowanie operatora percepcji ku przestrzeni Alef</span>
-  </div>
-
-  <h3>&#1488;&#1493;&#1512; &rarr; &#1506;&#1493;&#1512; &mdash; &#347;wiat&#322;o staje si&#281; sk&oacute;r&#261;</h3>
-
-  <p>Tekst Rodzaju zawiera ukryty dowód formalny tej zmiany operatora. W hebrajskim dwa s&#322;owa brzmi&#261; identycznie:</p>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1.8rem 0;max-width:640px">
-    <div style="background:rgba(196,127,255,0.07);border:1px solid rgba(196,127,255,0.25);border-radius:12px;padding:1.4rem;text-align:center">
-      <div style="font-size:2.8rem;color:#c47fff;font-family:'Playfair Display',serif;line-height:1;margin-bottom:.5rem">&#1488;&#1493;&#1512;</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.18em;color:#c47fff;margin-bottom:.5rem">OR &mdash; &#346;WIAT&#321;O</div>
-      <p style="font-size:.88rem;color:#7a90a8;margin:0">Alef + Vav + Resh.<br>Gradient dodatni. Bez formy, bez granicy. Stan Edenu &mdash; czyste &#347;wiat&#322;o jako substancja cz&#322;owieka.</p>
-    </div>
-    <div style="background:rgba(78,168,255,0.06);border:1px solid rgba(78,168,255,0.22);border-radius:12px;padding:1.4rem;text-align:center">
-      <div style="font-size:2.8rem;color:#4ea8ff;font-family:'Playfair Display',serif;line-height:1;margin-bottom:.5rem">&#1506;&#1493;&#1512;</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.18em;color:#4ea8ff;margin-bottom:.5rem">OR &mdash; SK&Oacute;RA</div>
-      <p style="font-size:.88rem;color:#7a90a8;margin:0">Ayin + Vav + Resh.<br>Gradient ujemny. Granica, forma, separacja. Stan po wyj&#347;ciu &mdash; sk&oacute;ra jako pierwsza struktura enkapsulacji.</p>
-    </div>
-  </div>
-
-  <p>Wymowa identyczna: <em>or</em>. Zapis r&oacute;&#380;ni si&#281; <strong>wy&#322;&#261;cznie pierwsz&#261; liter&#261;</strong>. W tradycji rabinistycznej (m.in. Bereszit Raba) talmudysta czyta to jako zapis samego zdarzenia: Wyjście z Edenu nie jest opisem geograficznym &mdash; jest <strong>podmian&#261; operatora w rdzeniu s&#322;owa okre&#347;laj&#261;cego substancj&#281; cz&#322;owieka</strong>. Cz&#322;owiek by&#322; <em>or-&#346;wiat&#322;o</em> (&#1488;&#1493;&#1512;), sta&#322; si&#281; <em>or-sk&oacute;ra</em> (&#1506;&#1493;&#1512;).</p>
-
-  <div class="eq-block" style="border-left-color:var(--accent3,#ff6b6b)">
-    <span class="eq-formula" style="color:var(--accent3,#ff6b6b)">&#1488;&#1493;&#1512; &xrarr; &#1506;&#1493;&#1512; \(\;\equiv\;\hat{G} \to \hat{H} \;\equiv\;\) Eden &xrarr; &#346;wiat</span>
-    <span class="eq-label">(5b.2) &mdash; Fall jako zamiana operatora: Alef&rarr;Ayin w rdzeniu substancji</span>
-  </div>
-
-  <p>Wygnanie z Edenu jest w tej interpretacji <strong>globaln&#261; projekcj&#261; P̂<sub>k</sub></strong> opisan&#261; w r&oacute;wnaniu (4.2): przej&#347;ciem ze stanu pe&#322;nej superpozycji |&#937;&#10217; ku konkretnemu stanowi w&#322;asnemu H&#770;. Cz&#322;owiek otrzyma&#322; <em>sk&oacute;r&#281;</em> &mdash; granic&#281;, form&#281;, enkapsulacj&#281; &mdash; bo wszed&#322; w przestrze&#324; rz&#261;dzon&#261; gradientem ujemnym. Sk&oacute;ra jest pierwsz&#261; manifestacj&#261; lokalnego minimum energetycznego jako definicji osoby.</p>
-
-  <blockquote>
-    Szabat jest odwróceniem tego wektora &mdash; <strong>rytualn&#261; podmian&#261; Ayin z powrotem na Alef</strong>: chwilowym odzyskaniem substancji &#347;wiat&#322;a w&#347;r&oacute;d struktury sk&oacute;ry. Nie mistyk&#261;. Operatorem.
-    <cite>&mdash; TERJ, interpretacja rdz 3:21 w j&#281;zyku gradient&oacute;w</cite>
-  </blockquote>
-
-  <p>Szabat jest zatem nie <em>brakiem dzia&#322;ania</em>, lecz <strong>aktywnym przekierowaniem wektora percepcji</strong>: od Ayin (ruch ku formie, podtrzymywanie struktury, praca gradient&oacute;w ujemnych) ku Alef (milczenie, brak preferencji stan&oacute;w, r&oacute;wnoprawdopodobno&#347;&#263; mikrokonfiguracji woli).</p>
-
-  <p>W j&#281;zyku TERJ oznacza to, &#380;e <strong>wola cz&#322;owieka</strong> &mdash; ten szczeg&oacute;lny operator wewn&#281;trzny, kt&oacute;ry na co dzie&#324; podtrzymuje trajektori&#281; &#380;ycia pod gradientem ujemnym &mdash; zostaje w szabacie uwolniona od obowi&#261;zku minimalizacji. Nie musi wybiera&#263; minimum. Nie musi d&#261;&#380;y&#263; do celu. Przez chwil&#281; <em>wszystkie stany s&#261; r&oacute;wnoprawdopodobne</em>.</p>
-
-  <blockquote>
-    Szabat nie jest przerw&#261; w &#380;yciu &mdash; jest <strong>lokaln&#261; kieszeni&#261; Edenu</strong> wewn&#261;trz struktury &#347;wiata. Przestrzeni&#261;, w kt&oacute;rej wola cz&#322;owieka na chwil&#281; staje si&#281; operatorem G&#770; &mdash; czystej potencjalno&#347;ci.
-    <cite>&mdash; TERJ, interpretacja semantyczna H3</cite>
-  </blockquote>
-
-  <div class="eq-block" style="border-left-color:var(--accent2)">
-    <span class="eq-formula" style="color:var(--accent2)">\(\lambda_{\text{szabat}}(t) \gg \lambda_{\text{baseline}} \;\Rightarrow\; \text{wola} \in \hat{G}\text{-przestrzeń}\;\)</span><span style="font-family:serif;font-size:1rem;color:var(--accent2)">[&#1488;&#1493;&#1512;]</span>
-    <span class="eq-label">(5b.3) &mdash; wola jako ma&#322;y Eden: lokalna dominacja gradientu +</span>
-  </div>
-
-  <p>Cz&#322;owiek <em>nie jest</em> uk&#322;adem, kt&oacute;ry musi by&#263; <em>albo</em> pod gradientem ujemnym <em>albo</em> pod gradientem dodatnim. Jest uk&#322;adem, kt&oacute;ry potrafi rytmicznie <strong>prze&#322;&#261;cza&#263; dominacj&#281;</strong>. W tym le&#380;y jego wyj&#261;tkowo&#347;&#263; w&#347;r&oacute;d uk&#322;ad&oacute;w fizycznych: jest jedynym poznanym nam systemem, kt&oacute;ry posiada wewn&#281;trzny rytm przej&#347;cia Ayin&thinsp;&rarr;&thinsp;Alef i potrafi go <em>&#347;wiadomie inicjowa&#263;</em>.</p>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2rem 0;max-width:700px">
-    <div style="background:rgba(78,168,255,0.06);border:1px solid rgba(78,168,255,0.2);border-radius:12px;padding:1.2rem">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:#4ea8ff;margin-bottom:.4rem">AYIN &#1506; &mdash; SK&Oacute;RA &#1506;&#1493;&#1512;</div>
-      <p style="font-size:.88rem;margin:0;color:#7a90a8">Gradient ujemny aktywny. Forma, granica, enkapsulacja. Percepcja organizuje &#347;wiat w struktury. Czas liniowy. &#346;wiat po Edenie.</p>
-    </div>
-    <div style="background:rgba(196,127,255,0.06);border:1px solid rgba(196,127,255,0.2);border-radius:12px;padding:1.2rem">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:#c47fff;margin-bottom:.4rem">ALEF &#1488; &mdash; &#346;WIAT&#321;O &#1488;&#1493;&#1512;</div>
-      <p style="font-size:.88rem;margin:0;color:#7a90a8">Gradient dodatni. Bez granicy, bez formy. Wszystkie konfiguracje r&oacute;wnoprawdopodobne. Czas zawieszony. Substancja Edenu &mdash; ma&#322;y Eden w szabacie.</p>
-    </div>
-  </div>
-</section>
-
-<section id="wnioski" class="reveal">
-  <div class="section-label">06 &mdash; Konkluzja</div>
-  <div class="conclusion">
-    <h2>Czym musia&#322;by by&#263; B&oacute;g?</h2>
-    <p>Niniejsza praca nie odpowiada na pytanie, czym jest B&oacute;g. Stawia pytanie precyzyjniej: <strong>czym musia&#322;by by&#263; B&oacute;g, by fizykalne i semantyczne w&#322;a&#347;ciwo&#347;ci rzeczywisto&#347;ci mog&#322;y by&#263; sp&oacute;jnie opisane?</strong></p>
-    <p><em>Gradient dodatni</em> &mdash; operator pe&#322;nej potencjalno&#347;ci, kosmologiczna zasada wolno&#347;ci &mdash; jest nasz&#261; odpowiedzi&#261;. Ludzka &#347;wiadomo&#347;&#263;, tw&oacute;rczo&#347;&#263;, modlitwa i rytmy kulturowe s&#261; opisem <strong>dynamicznych relacji mi&#281;dzy dwoma typami gradient&oacute;w</strong>.</p>
-    <p>Cz&#322;owiek jest <strong>w&#281;z&#322;em, w kt&oacute;rym oba porz&#261;dki si&#281; spotykaj&#261;.</strong></p>
-    <blockquote style="margin-top:1.5rem">
-      Granic&#261; nauki nie jest to, czego jeszcze nie odkryli&#347;my. Granic&#261; nauki jest to, czego nie o&#347;mielamy si&#281; zapyta&#263;.
-      <cite>&mdash; parafrazuj&#261;c Feynmana</cite>
-    </blockquote>
-  </div>
-</section>
-
-</div>
-
-<footer>TERJ Working Paper Series &nbsp;&middot;&nbsp; Pawe&#322; Majsterek &nbsp;&middot;&nbsp; 9 Marca 2026 &nbsp;&middot;&nbsp; B&oacute;g jako gradient dodatni</footer>
 
 <script>
-// PARTICLES
-(function(){
-  var cv=document.getElementById('particles');
-  if(!cv) return;
-  var cx=cv.getContext('2d');
-  function resize(){ cv.width=window.innerWidth; cv.height=window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-  var pts=[];
-  for(var i=0;i<160;i++) pts.push({
-    x:Math.random()*cv.width, y:Math.random()*cv.height,
-    r:Math.random()*1.1+0.3, vx:(Math.random()-.5)*.15, vy:(Math.random()-.5)*.15,
-    a:Math.random()*.35+.07, h:Math.random()<.65?210:(Math.random()<.5?270:180)
+'use strict';
+const PI = Math.PI, TAU = 2*PI;
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+const G = id => document.getElementById(id);
+
+// SVG namespace helper
+function svgEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  Object.entries(attrs).forEach(([k,v]) => el.setAttribute(k, v));
+  return el;
+}
+
+// Get SVG viewbox width (always reliable — SVG fills container via CSS width:100%)
+function svgW(svgId) {
+  const el = G(svgId);
+  return el.getBoundingClientRect().width || el.parentElement.clientWidth || 700;
+}
+
+// Replace all children of SVG element
+function setSVG(id, fn) {
+  const svg = G(id);
+  const W = svgW(id);
+  const H = +svg.getAttribute('height') || 320;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = '';
+  fn(svg, W, H);
+}
+
+// ── COLOR CONSTANTS ──────────────────────────
+const CG = '#8a6a1a', CS = '#6a5a3a', CD = '#c0ab88';
+const CC = '#1a6e8a', CR = '#8a2a10', CB = '#faf7f2';
+const CB2 = 'rgba(140,100,30,0.18)';
+
+// ── SVG TEXT helper ──────────────────────────
+function t(svg, x, y, txt, attrs={}) {
+  const el = svgEl('text', {x, y, ...attrs});
+  el.textContent = txt;
+  svg.appendChild(el);
+}
+function line(svg, x1,y1,x2,y2,attrs={}) {
+  svg.appendChild(svgEl('line', {x1,y1,x2,y2,...attrs}));
+}
+function rect(svg, x,y,w,h,attrs={}) {
+  svg.appendChild(svgEl('rect', {x,y,width:w,height:h,...attrs}));
+}
+function circle(svg, cx,cy,r,attrs={}) {
+  svg.appendChild(svgEl('circle', {cx,cy,r,...attrs}));
+}
+function path(svg, d, attrs={}) {
+  svg.appendChild(svgEl('path', {d,...attrs}));
+}
+function polyline(svg, pts, attrs={}) {
+  svg.appendChild(svgEl('polyline', {points:pts.map(([x,y])=>`${x},${y}`).join(' '), ...attrs}));
+}
+
+function mkDefs(svg, items) {
+  const defs = svgEl('defs', {});
+  items.forEach(el => defs.appendChild(el));
+  svg.appendChild(defs);
+}
+
+function linGrad(id, x1,y1,x2,y2, stops) {
+  const g = svgEl('linearGradient', {id,x1,y1,x2,y2, gradientUnits:'userSpaceOnUse'});
+  stops.forEach(([offset,color]) => {
+    const s = svgEl('stop', {}); s.setAttribute('offset',offset); s.setAttribute('stop-color',color);
+    g.appendChild(s);
   });
-  function frame(){
-    cx.clearRect(0,0,cv.width,cv.height);
-    pts.forEach(function(p){
-      cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      cx.fillStyle='hsla('+p.h+',80%,70%,'+p.a+')'; cx.fill();
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<-5) p.x=cv.width+5; if(p.x>cv.width+5) p.x=-5;
-      if(p.y<-5) p.y=cv.height+5; if(p.y>cv.height+5) p.y=-5;
-    });
-    requestAnimationFrame(frame);
+  return g;
+}
+
+function gridLines(svg, pad, W, H, rows=4) {
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+  for(let i=1;i<=rows;i++) {
+    const y = pad.t + ph*(1-i/rows);
+    line(svg, pad.l,y, pad.l+pw,y, {stroke:CB2,'stroke-width':'.5'});
   }
-  frame();
-})();
+}
 
-// REVEAL
-document.querySelectorAll('.reveal').forEach(function(el){
-  new IntersectionObserver(function(e){
-    e.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('visible'); });
-  },{threshold:0.08}).observe(el);
-});
+function axes(svg, pad, W, H, xl, yl) {
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+  const font = "9px 'Share Tech Mono',monospace";
+  line(svg, pad.l,pad.t, pad.l,pad.t+ph+4, {stroke:CS,'stroke-width':'1'});
+  line(svg, pad.l-4,pad.t+ph, pad.l+pw,pad.t+ph, {stroke:CS,'stroke-width':'1'});
+  t(svg, pad.l+pw/2, H-3, xl, {'text-anchor':'middle','fill':CS,'font-size':'10','font-family':"'Share Tech Mono',monospace"});
+  const tl = svgEl('text', {x:'13',y:`${pad.t+ph/2}`,'text-anchor':'middle','fill':CS,'font-size':'10','font-family':"'Share Tech Mono',monospace",'transform':`rotate(-90,13,${pad.t+ph/2})`});
+  tl.textContent = yl; svg.appendChild(tl);
+}
 
-// NAV ACTIVE
-var navLinks = document.querySelectorAll('.nav-links a');
-document.querySelectorAll('section[id], .chart-section[id]').forEach(function(s){
-  new IntersectionObserver(function(e){
-    e.forEach(function(x){
-      if(x.isIntersecting) navLinks.forEach(function(l){
-        l.classList.toggle('active', l.getAttribute('href')==='#'+x.target.id);
+// ═══════════════════════════════════════════
+// CHART 1 — Maxwell-Boltzmann
+// ═══════════════════════════════════════════
+function drawG1() {
+  const T = +G('r1T').value, Gv = G('r1G').value/100;
+  G('d1T').textContent = T+' K';
+  G('d1G').textContent = Math.round(Gv*100)+' %';
+
+  setSVG('g1', (svg, W, H) => {
+    const kB=1.38e-23, m=6.64e-26;
+    const a2=kB*T/m, vp=Math.sqrt(2*a2), vmax=vp*3.5;
+    const pad={l:52,r:24,t:30,b:44};
+    const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+
+    const mb=v=>4*PI*v*v*Math.exp(-v*v/(2*a2))/Math.pow(2*PI*a2,1.5);
+    const mbG=v=>mb(v)*(1+Gv*Math.sin(PI*v/vmax));
+    let mx=1e-99;
+    const bins=100;
+    for(let i=0;i<bins;i++) mx=Math.max(mx,mbG((i+.5)*vmax/bins));
+
+    rect(svg,0,0,W,H,{fill:CB});
+    gridLines(svg,pad,W,H);
+
+    // Fill gradient
+    const g=linGrad('mbFill',pad.l,pad.t,pad.l,pad.t+ph,[['0%','rgba(138,106,26,.18)'],['100%','rgba(138,106,26,.02)']]);
+    mkDefs(svg,[g]);
+
+    // Compute polyline points
+    const pts=[];
+    for(let i=0;i<bins;i++){
+      const v=(i+.5)*vmax/bins;
+      pts.push([pad.l+v/vmax*pw, pad.t+ph*(1-mbG(v)/mx)]);
+    }
+
+    // Area fill
+    const fillPts=[[pad.l,pad.t+ph],...pts,[pad.l+pw,pad.t+ph]];
+    path(svg,'M'+fillPts.map(([x,y])=>`${x.toFixed(1)},${y.toFixed(1)}`).join('L')+'Z',{fill:'url(#mbFill)',stroke:'none'});
+    // Line
+    polyline(svg,pts,{fill:'none',stroke:CG,'stroke-width':'2','stroke-linejoin':'round'});
+
+    // vp line
+    const vpx=pad.l+vp/vmax*pw;
+    line(svg,vpx,pad.t,vpx,pad.t+ph,{stroke:'rgba(138,106,26,.35)','stroke-width':'1','stroke-dasharray':'4,6'});
+    t(svg,vpx,pad.t-5,'v_p',{'text-anchor':'middle',fill:'rgba(138,106,26,.6)','font-size':'9','font-family':"'Share Tech Mono',monospace"});
+
+    // Axis ticks
+    for(let i=0;i<=4;i++){
+      t(svg,pad.l+i*pw/4,pad.t+ph+14,Math.round(i*vmax/4),{'text-anchor':'middle',fill:CD,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+      t(svg,pad.l-5,pad.t+ph*(1-i/4)+3,(i/4).toFixed(2),{'text-anchor':'end',fill:CD,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+    }
+    axes(svg,pad,W,H,'prędkość v [m/s]','f(v)');
+
+    // Gradient overlay
+    if(Gv>0.02){
+      const go=linGrad('goFill',pad.l,0,pad.l+pw,0,[['0%','rgba(26,110,138,0)'],[`50%`,`rgba(26,110,138,${(Gv*.08).toFixed(3)})`],['100%','rgba(26,110,138,0)']]);
+      mkDefs(svg,[go]);
+      rect(svg,pad.l,pad.t,pw,ph,{fill:'url(#goFill)'});
+    }
+
+    t(svg,W-pad.r,pad.t+14,`T=${T}K  G=${Math.round(Gv*100)}%`,{'text-anchor':'end',fill:CG,'font-size':'10','font-family':"'Share Tech Mono',monospace"});
+  });
+}
+G('r1T').oninput = drawG1;
+G('r1G').oninput = drawG1;
+
+// ═══════════════════════════════════════════
+// CHART 2 — Wave / SOFAR  (animated SVG polyline)
+// ═══════════════════════════════════════════
+let wPh=0, wRaf=null, wOn=false;
+
+function drawWaveFrame() {
+  if(!wOn){wRaf=null;return;}
+  const dT=G('r2T').value/100, al=G('r2a').value/200, om=+G('r2w').value;
+
+  setSVG('g2', (svg, W, H) => {
+    const pad={l:20,r:20,t:30,b:20};
+    const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+
+    rect(svg,0,0,W,H,{fill:CB});
+
+    if(dT>0.05){
+      const bg=linGrad('waveBg',0,pad.t,0,pad.t+ph,[[`0%`,`rgba(26,110,138,${(dT*.07).toFixed(3)})`],[`${(45).toFixed(0)}%`,`rgba(26,110,138,${(dT*.16).toFixed(3)})`],[`${(55).toFixed(0)}%`,`rgba(26,110,138,${(dT*.04).toFixed(3)})`],[`100%`,`rgba(26,110,138,${(dT*.01).toFixed(3)})`]]);
+      mkDefs(svg,[bg]);
+      rect(svg,pad.l,pad.t,pw,ph,{fill:'url(#waveBg)'});
+      const sy=pad.t+ph*(.5-dT*.15);
+      line(svg,pad.l,sy,pad.l+pw,sy,{stroke:`rgba(26,110,138,${(dT*.5).toFixed(3)})`,'stroke-width':'.8','stroke-dasharray':'5,9'});
+      t(svg,pad.l+8,sy-5,'kanał SOFAR',{fill:`rgba(26,110,138,${(dT*.7).toFixed(3)})`,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+    }
+
+    const nW=dT>.1?3:1;
+    for(let w=0;w<nW;w++){
+      const phOff=w*(TAU/nW), wAmp=dT>.1?1-w*.22:1;
+      const pts=[];
+      for(let xi=0;xi<=pw;xi+=2){
+        const tx=xi/pw, dmp=Math.exp(-al*tx*8);
+        const bend=dT*Math.sin(tx*PI)*ph*.18, spr=(1-dT)*ph*.06*w;
+        const y=H/2+bend+spr+Math.sin(om*tx*TAU-wPh+phOff)*ph*.17*dmp*wAmp;
+        pts.push([pad.l+xi,y]);
+      }
+      polyline(svg,pts,{fill:'none',stroke:w===0?CG:`rgba(138,106,26,${(.35*(1-w*.2)*dT).toFixed(3)})`,'stroke-width':w===0?'2':'.8'});
+    }
+
+    t(svg,W-pad.r,pad.t+14,`ΔT=${G('r2T').value}  α=${G('r2a').value}  ω=${om}`,{'text-anchor':'end',fill:CG,'font-size':'10','font-family':"'Share Tech Mono',monospace"});
+  });
+
+  wPh+=0.045;
+  wRaf=requestAnimationFrame(drawWaveFrame);
+}
+function startWave(){wOn=true;if(!wRaf)wRaf=requestAnimationFrame(drawWaveFrame);}
+function stopWave(){wOn=false;}
+G('r2T').oninput=()=>G('d2T').textContent=G('r2T').value;
+G('r2a').oninput=()=>G('d2a').textContent=G('r2a').value;
+G('r2w').oninput=()=>G('d2w').textContent=G('r2w').value;
+
+// ═══════════════════════════════════════════
+// CHART 3 — Quantum spectrum
+// ═══════════════════════════════════════════
+const ELEM=['H','He','Li','Be','B','C','N','O'];
+const SERIES=['Lymana','Balmera','Paschena','Bracketta'];
+const SN=[1,2,3,4];
+const RH=1.097e7;
+
+function wlRGB(nm){
+  let r,g,b;
+  if(nm>=380&&nm<440){r=(440-nm)/60;g=0;b=1;}
+  else if(nm>=440&&nm<490){r=0;g=(nm-440)/50;b=1;}
+  else if(nm>=490&&nm<510){r=0;g=1;b=(510-nm)/20;}
+  else if(nm>=510&&nm<580){r=(nm-510)/70;g=1;b=0;}
+  else if(nm>=580&&nm<645){r=1;g=(645-nm)/65;b=0;}
+  else if(nm>=645&&nm<=780){r=1;g=0;b=0;}
+  else{r=.4;g=.4;b=.4;}
+  const a=nm<420?.3+(nm-380)/40*.7:nm>700?.3+(780-nm)/80*.7:1;
+  return `rgba(${~~(r*255)},${~~(g*255)},${~~(b*255)},${a.toFixed(2)})`;
+}
+
+function drawG3(){
+  const Z=+G('r3Z').value, nMax=+G('r3n').value, si=G('r3s').value-1, n1=SN[si];
+  G('d3Z').textContent=ELEM[Z-1]+' (Z='+Z+')';
+  G('d3n').textContent='n = '+nMax;
+  G('d3s').textContent='Seria '+SERIES[si];
+
+  setSVG('g3',(svg,W,H)=>{
+    const pl=58,pr=20,pt=44,pb=52;
+    const pw=W-pl-pr, ph=H-pt-pb;
+    const Efn=n=>-13.6*Z*Z/(n*n);
+    const eMin=Efn(nMax), eRng=Efn(1)-eMin;
+    const ey=n=>pt+ph*(1-(Efn(n)-eMin)/eRng);
+    const barY=pt+ph*.14, barH=ph*.36;
+
+    rect(svg,0,0,W,H,{fill:CB});
+
+    // Spectrum gradient
+    const stops=[];
+    for(let nm=380;nm<=780;nm+=4) stops.push([`${((nm-380)/400*100).toFixed(1)}%`,wlRGB(nm)]);
+    const sg=linGrad('specG',pl,0,pl+pw,0,stops);
+    mkDefs(svg,[sg]);
+    rect(svg,pl,barY,pw,barH,{fill:'url(#specG)',opacity:'.88'});
+    rect(svg,pl,barY,pw,barH,{fill:'rgba(250,247,242,.5)'});
+
+    // Energy levels
+    for(let n=1;n<=nMax;n++){
+      const y=ey(n), col=n===1?CG:'rgba(138,106,26,.35)';
+      line(svg,pl,y,pl+48,y,{stroke:col,'stroke-width':n===1?'1.5':'.8'});
+      t(svg,pl-4,y+3.5,`n=${n}`,{'text-anchor':'end',fill:'rgba(138,106,26,.7)','font-size':'9','font-family':"'Share Tech Mono',monospace"});
+      t(svg,pl+52,y+3.5,`${Efn(n).toFixed(1)}eV`,{fill:'rgba(138,106,26,.4)','font-size':'9','font-family':"'Share Tech Mono',monospace"});
+    }
+
+    // Transitions
+    for(let n2=n1+1;n2<=nMax;n2++){
+      const lnm=1e9/(RH*Z*Z*(1/(n1*n1)-1/(n2*n2)));
+      const col=wlRGB(lnm), vis=lnm>=380&&lnm<=780;
+      const ax=pl+60+(n2-n1-1)*22;
+      line(svg,ax,ey(n2),ax,ey(n1),{stroke:vis?col:'rgba(180,180,180,.2)','stroke-width':'1','stroke-dasharray':'2,4'});
+      if(vis){
+        const lx=pl+(lnm-380)/400*pw;
+        line(svg,lx,barY,lx,barY+barH,{stroke:col,'stroke-width':'2.5'});
+        t(svg,lx,barY+barH+13,`${~~lnm}nm`,{'text-anchor':'middle',fill:col,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+      }
+    }
+
+    // Axes/labels
+    line(svg,pl,pt,pl,pt+ph,{stroke:CS,'stroke-width':'.8'});
+    line(svg,pl,pt+ph,pl+pw,pt+ph,{stroke:CS,'stroke-width':'.8'});
+    t(svg,pl+pw/2,H-4,'długość fali λ [nm]',{'text-anchor':'middle',fill:CS,'font-size':'10','font-family':"'Share Tech Mono',monospace"});
+    const tl=svgEl('text',{x:'13',y:`${pt+ph/2}`,'text-anchor':'middle',fill:CS,'font-size':'10','font-family':"'Share Tech Mono',monospace",'transform':`rotate(-90,13,${pt+ph/2})`});
+    tl.textContent='energia [eV]'; svg.appendChild(tl);
+    t(svg,W-pr,pt-10,`${ELEM[Z-1]} · Seria ${SERIES[si]} · n₁=${n1}`,{'text-anchor':'end',fill:CG,'font-size':'10','font-family':"'Share Tech Mono',monospace"});
+  });
+}
+G('r3Z').oninput=drawG3;
+G('r3n').oninput=drawG3;
+G('r3s').oninput=drawG3;
+
+// ═══════════════════════════════════════════
+// CHART 4 — Shannon entropy
+// ═══════════════════════════════════════════
+function Hbit(p){return(p<=0||p>=1)?0:-(p*Math.log2(p)+(1-p)*Math.log2(1-p));}
+
+function drawG4(){
+  const p0=G('r4p').value/100, noise=G('r4s').value/100, T=+G('r4T').value;
+  G('d4p').textContent=G('r4p').value+' %';
+  G('d4s').textContent=G('r4s').value+' %';
+  G('d4T').textContent=T+' K';
+  const Elv=(1.38e-23*T*Math.log(2)/1.6e-19);
+  const pn=clamp(p0+noise*.4*Math.sin(p0*17+noise*13),.01,.99);
+
+  setSVG('g4',(svg,W,H)=>{
+    const pad={l:52,r:148,t:30,b:44};
+    const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+
+    rect(svg,0,0,W,H,{fill:CB});
+    gridLines(svg,pad,W,H);
+
+    // H(p) fill
+    const fg=linGrad('hFill',pad.l,pad.t,pad.l,pad.t+ph,[['0%','rgba(138,106,26,.12)'],['100%','rgba(138,106,26,.01)']]);
+    mkDefs(svg,[fg]);
+    const pts=[];
+    for(let i=0;i<=200;i++){const p=i/200;pts.push([pad.l+p*pw,pad.t+ph*(1-Hbit(p))]);}
+    const fillD='M'+pad.l+','+(pad.t+ph)+'L'+pts.map(([x,y])=>`${x.toFixed(1)},${y.toFixed(1)}`).join('L')+`L${pad.l+pw},${pad.t+ph}Z`;
+    path(svg,fillD,{fill:'url(#hFill)',stroke:'none'});
+    polyline(svg,pts,{fill:'none',stroke:'rgba(138,106,26,.35)','stroke-width':'1.5','stroke-linejoin':'round'});
+
+    // vlines & points
+    const px0=pad.l+p0*pw, py0=pad.t+ph*(1-Hbit(p0));
+    line(svg,px0,pad.t,px0,pad.t+ph,{stroke:'rgba(138,106,26,.3)','stroke-width':'1','stroke-dasharray':'4,6'});
+    circle(svg,px0,py0,6,{fill:CG});
+
+    const pxn=pad.l+pn*pw, pyn=pad.t+ph*(1-Hbit(pn));
+    circle(svg,pxn,pyn,5,{fill:CR});
+
+    // Ticks
+    for(let i=0;i<=4;i++){
+      t(svg,pad.l+i*pw/4,pad.t+ph+13,['0','.25','.5','.75','1'][i],{'text-anchor':'middle',fill:CD,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+      t(svg,pad.l-5,pad.t+ph*(1-i/4)+3,(i/4).toFixed(2),{'text-anchor':'end',fill:CD,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+    }
+    axes(svg,pad,W,H,'prawdopodobieństwo p','H(p) [bit]');
+
+    // Sidebar
+    const ix=pad.l+pw+10, iy=pad.t+16;
+    const fnt="10px 'Share Tech Mono',monospace";
+    [[CG,`H(p₀) =`],[CG,Hbit(p0).toFixed(3)+' bit'],[CR,`H(pₙ) =`],[CR,Hbit(pn).toFixed(3)+' bit'],['rgba(138,106,26,.55)',`E_land =`],['rgba(138,106,26,.55)',Elv.toExponential(2)+' eV'],['rgba(138,106,26,.45)',`T = ${T} K`]].forEach(([col,txt],i)=>{
+      t(svg,ix,iy+i*16,txt,{fill:col,'font-size':'10','font-family':"'Share Tech Mono',monospace"});
+    });
+  });
+}
+G('r4p').oninput=drawG4;
+G('r4s').oninput=drawG4;
+G('r4T').oninput=drawG4;
+
+// ═══════════════════════════════════════════
+// CHART 5 — Temperature scale
+// ═══════════════════════════════════════════
+function drawG5(){
+  setSVG('g5',(svg,W,H)=>{
+    const pl=24,pr=24, axY=H/2;
+    const pw=W-pl-pr;
+    const logMin=Math.log10(.001), logMax=Math.log10(2e7);
+    const tx=T=>pl+(Math.log10(Math.max(T,.001))-logMin)/(logMax-logMin)*pw;
+
+    rect(svg,0,0,W,H,{fill:CB});
+
+    // Axis gradient bar
+    const tg=linGrad('tg',pl,0,pl+pw,0,[['0%','#3060cc'],['35%','#40a0cc'],['60%','#c8a830'],['80%','#cc6820'],['100%','#cc1010']]);
+    mkDefs(svg,[tg]);
+    const barEl=svgEl('rect',{x:pl,y:axY-5,width:pw,height:10,fill:'url(#tg)',rx:3,opacity:.75});
+    svg.appendChild(barEl);
+
+    // Decade ticks
+    for(let exp=Math.ceil(logMin);exp<=Math.ceil(logMax);exp++){
+      const T=Math.pow(10,exp); if(T>2e7*1.2) continue;
+      const x=tx(T);
+      line(svg,x,axY-10,x,axY+10,{stroke:CD,'stroke-width':'.8'});
+      const lbl=T>=1e6?(T/1e6).toFixed(0)+'M':T>=1e3?(T/1e3).toFixed(0)+'k':T<1?T.toFixed(3):String(T);
+      t(svg,x,axY+21,lbl,{'text-anchor':'middle',fill:CD,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+    }
+
+    // Refs
+    const refs=[
+      {T:.001, lab:'Kondensat\nBosego-Einsteina', note:'.001 K', col:'#3060cc', up:true},
+      {T:2.725,lab:'Promieniowanie\ntła CMB',       note:'2.7 K',  col:'#3888aa', up:false},
+      {T:77,   lab:'Ciekły azot',                   note:'77 K',   col:'#44a0bb', up:true},
+      {T:273,  lab:'Topnienie lodu',                note:'273 K',  col:'#60a870', up:false},
+      {T:310,  lab:'Ciało człowieka',               note:'310 K',  col:'#709050', up:true},
+      {T:1811, lab:'Topnienie żelaza',              note:'1811 K', col:'#a07828', up:false},
+      {T:5778, lab:'Powierzchnia\nSłońca',          note:'5778 K', col:'#cc5818', up:true},
+      {T:2.7e4,lab:'Piorun',                        note:'27k K',  col:'#bb3810', up:false},
+      {T:1.5e7,lab:'Jądro Słońca',                  note:'15M K',  col:'#991010', up:true},
+    ];
+    const ARM=72;
+    refs.forEach(r=>{
+      const x=tx(r.T);
+      circle(svg,x,axY,5,{fill:r.col});
+      const y0=axY+(r.up?-7:7), y1=axY+(r.up?-(ARM+8):(ARM+8));
+      line(svg,x,y0,x,y1,{stroke:r.col,'stroke-width':'1','stroke-dasharray':'3,3'});
+      const ty=r.up?y1-14:y1+14;
+      t(svg,x,ty,r.note,{'text-anchor':'middle',fill:r.col,'font-size':'9','font-weight':'bold','font-family':"'Share Tech Mono',monospace"});
+      r.lab.split('\n').forEach((ln,li)=>{
+        t(svg,x,ty+(r.up?-14-li*13:14+li*13),ln,{'text-anchor':'middle',fill:r.col,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
       });
     });
-  },{threshold:0.3}).observe(s);
+
+    t(svg,W/2,18,'SKALA TEMPERATUR (logarytmiczna)',{'text-anchor':'middle',fill:CG,'font-size':'11','font-weight':'bold','font-family':"'Share Tech Mono',monospace"});
+    t(svg,pl,axY-10,'← zimno',{fill:CS,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+    t(svg,pl+pw,axY-10,'gorąco →',{'text-anchor':'end',fill:CS,'font-size':'9','font-family':"'Share Tech Mono',monospace"});
+  });
+}
+
+// ═══════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════
+const DRAW = {p1:drawG1, p2:null, p3:drawG3, p4:drawG4, p5:drawG5};
+
+function switchTab(tid) {
+  document.querySelectorAll('.iw-tab').forEach(b => b.classList.toggle('on', b.dataset.p===tid));
+  document.querySelectorAll('.iw-panel').forEach(p => p.classList.toggle('on', p.id===tid));
+  stopWave();
+  if(tid==='p2') startWave();
+  else if(DRAW[tid]) DRAW[tid]();
+}
+document.querySelectorAll('.iw-tab').forEach(b => b.addEventListener('click', ()=>switchTab(b.dataset.p)));
+
+// ═══════════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════════
+const ro = new IntersectionObserver(
+  es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+  {threshold:.07}
+);
+document.querySelectorAll('.essay-section').forEach(el => ro.observe(el));
+
+// ═══════════════════════════════════════════
+// PROGRESS BAR
+// ═══════════════════════════════════════════
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  G('bar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+// ═══════════════════════════════════════════
+// SIDE NAV
+// ═══════════════════════════════════════════
+const NAV_IDS=['s1','s2','s3','s4','s5','s6','s7','viz','s8'];
+const NAV_LBL=['YHWH','Boltzmann','Kwanty','Widma','Landauer','Świadomość','Kosmos','Wykresy','Coda'];
+NAV_IDS.forEach((sid,i)=>{
+  const d=document.createElement('div');
+  d.className='sndot'; d.dataset.tip=NAV_LBL[i];
+  d.onclick=()=>document.getElementById(sid)?.scrollIntoView({behavior:'smooth'});
+  G('sn').appendChild(d);
+});
+const navDots=document.querySelectorAll('.sndot');
+window.addEventListener('scroll',()=>{
+  const mid=window.scrollY+window.innerHeight/2;
+  let a=0;
+  NAV_IDS.forEach((sid,i)=>{const el=document.getElementById(sid);if(el&&el.offsetTop<=mid)a=i;});
+  navDots.forEach((d,i)=>d.classList.toggle('active',i===a));
+},{passive:true});
+
+// ═══════════════════════════════════════════
+// INIT — draw all charts immediately on load
+// SVG fills 100% width via CSS, so dimensions
+// are always reliable — no timing issues.
+// ═══════════════════════════════════════════
+window.addEventListener('load', () => {
+  drawG1();
+  drawG3();
+  drawG4();
+  drawG5();
+  // Redraw on resize
+  window.addEventListener('resize', ()=>{
+    const active = document.querySelector('.iw-panel.on')?.id;
+    if(active==='p1') drawG1();
+    else if(active==='p3') drawG3();
+    else if(active==='p4') drawG4();
+    else if(active==='p5') drawG5();
+  });
 });
 </script>
+
 </body>
 </html>
